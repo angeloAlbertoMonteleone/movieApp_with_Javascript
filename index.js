@@ -1,17 +1,18 @@
 {'use strict'};
 
-/* creare una nuova cartella [chiamatela come volete] con 3 file html css e js
-1.	recuperare l’api da the movie db (https://developers.themoviedb.org/3/movies/get-top-rated-movies)  e stampare a console la lista dei film recuperati
-2.	gestire un’errore dall’api ad esempio mettere un’api sbagliata e visualizzare l’errore a video
-3.	dalla lista recuperata prima selezionare due film e falli visualizzarli a video facendo vedere la copertina, titolo(title) e la descrizione (overview)   
-4.	impostare un timer che dopo 3 sec recupera uno dei due film selezionati prima e lo faccia scomparire e dopo altri 3 sec sia visibile di nuovo  
- */
+/* create a new folder [name it as you like] with 3 html css and js files
+1. recover the api from the movie db (https://developers.themoviedb.org/3/movies/get-top-rated-movies) and print the list of recovered films on the console
+2. manage an error from the API, for example putting a wrong API key and displaying the error on the screen
+3. from the list retrieved, first select two films and show them on the screen showing the cover, title (title) and description (overview)
+4. set a timer that after 3 seconds recovers one of the two films selected before and makes it disappear, and after another 3 seconds makes it visible again
+  */
+
 const BASE_URL = 'https://api.themoviedb.org/3';
 const MOVIE_GENRE = '/movie/top_rated';
-const API_KEY = '/api_key=ebe0a7b19063d864de232de72766c4ee';
+const API_KEY = '?api_key=ebe0a7b19063d864de232de72766c4ee';
 const LANGUAGE_URL = '&language=en-US&page=1'; 
-const URL = 'https://api.themoviedb.org/3/movie/top_rated?api_key=ebe0a7b19063d864de232de72766c4ee&language=en-US&page=1';
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+const URL = BASE_URL + MOVIE_GENRE + API_KEY + LANGUAGE_URL;
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w400";
 
 fetch(URL).then(
     async (topRated) => {
@@ -22,12 +23,12 @@ fetch(URL).then(
             return alert_message;
             }
         
-        const {results: films } = movies;
+        const {results: films} = movies;
 
         const filterTwo = getTwo(films);
             console.log(filterTwo);
 
-            const firsMovie=   {
+            const firsMovie = {
                 title: filterTwo[0].title,
                 overview : filterTwo[0].overview,
                 poster : filterTwo[0].poster_path
@@ -38,31 +39,34 @@ fetch(URL).then(
                 poster : filterTwo[1].poster_path
             }
 
-            setTimeout(() => {
-                firsMovie.title = document.getElementById('title1');
-                firsMovie.overview = document.getElementById('par1')
+            const firsTimeOut = setTimeout(() => {
+                document.getElementById('title1').innerHTML = firsMovie.title;
+                document.getElementById('par1').innerText = firsMovie.overview;
                 const img = document.getElementById('img1');
                 img.src = IMAGE_BASE_URL + firsMovie.poster;
-            },3000);
-            
-            setTimeout(() => {
-                secondMovie.title = document.getElementById('title2');
-                secondMovie.overview = document.getElementById('par2')
-                const img = document.getElementById('img2');
-                img.src = IMAGE_BASE_URL + secondMovie.poster;
-            },3000);
+            }, 3000);
+
+
+            const secondTimeOut = setTimeout(() => {
+                document.getElementById('title2').innerHTML = secondMovie.title;
+                document.getElementById('par2').innerText = secondMovie.overview;
+                const img2 = document.getElementById('img2');
+                img2.src = IMAGE_BASE_URL + secondMovie.poster;
+                document.querySelector('.movie1 .title1').style.display='none';
+                document.querySelector('.movie1 .image1').style.display='none';
+            },6000);
     
                     // const poster = showPoster(filterTwo);
-        //     console.log(`Movie poster`, poster);
+                    //     console.log(`Movie poster`, poster);
         // }
         }).catch(error => console.log(error));
 
 
 function getError(code) {
     if(code === 7) {
-        alert("Devi inserire una chiave valida API");
+        alert("You must enter a valid API Key");
     }else {
-        alert("errore API generico");
+        alert("Generic error");
     }
 }
     
