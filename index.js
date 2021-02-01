@@ -12,7 +12,10 @@ const MOVIE_GENRE = '/movie/top_rated';
 const API_KEY = '?api_key=ebe0a7b19063d864de232de72766c4ee';
 const LANGUAGE_URL = '&language=en-US&page=1'; 
 const URL = BASE_URL + MOVIE_GENRE + API_KEY + LANGUAGE_URL;
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w400";
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
+
+const body = document.querySelector('body');
+const mainDiv = document.querySelector('wrapper')
 
 fetch(URL).then(
     async (topRated) => {
@@ -24,37 +27,39 @@ fetch(URL).then(
             }
         
         const {results: films} = movies;
+        
+        
+        setFilms2(films);
+        // const filterTwo = getTwo(films);
+        //     console.log(filterTwo);
 
-        const filterTwo = getTwo(films);
-            console.log(filterTwo);
+            // const firsMovie = {
+            //     title: filterTwo[0].title,
+            //     overview : filterTwo[0].overview,
+            //     poster : filterTwo[0].poster_path
+            // }
+            // const secondMovie = {
+            //     title: filterTwo[1].title,
+            //     overview : filterTwo[1].overview,
+            //     poster : filterTwo[1].poster_path
+            // }
 
-            const firsMovie = {
-                title: filterTwo[0].title,
-                overview : filterTwo[0].overview,
-                poster : filterTwo[0].poster_path
-            }
-            const secondMovie = {
-                title: filterTwo[1].title,
-                overview : filterTwo[1].overview,
-                poster : filterTwo[1].poster_path
-            }
-
-            const firsTimeOut = setTimeout(() => {
-                document.getElementById('title1').innerHTML = firsMovie.title;
-                document.getElementById('par1').innerText = firsMovie.overview;
-                const img = document.getElementById('img1');
-                img.src = IMAGE_BASE_URL + firsMovie.poster;
-            }, 3000);
+            // const firsTimeOut = setTimeout(() => {
+            //     document.getElementById('title1').innerHTML = firsMovie.title;
+            //     document.getElementById('par1').innerText = firsMovie.overview;
+            //     const img = document.getElementById('img1');
+            //     img.src = IMAGE_BASE_URL + firsMovie.poster;
+            // }, 3000);
 
 
-            const secondTimeOut = setTimeout(() => {
-                document.getElementById('title2').innerHTML = secondMovie.title;
-                document.getElementById('par2').innerText = secondMovie.overview;
-                const img2 = document.getElementById('img2');
-                img2.src = IMAGE_BASE_URL + secondMovie.poster;
-                document.querySelector('.movie1 .title1').style.display='none';
-                document.querySelector('.movie1 .image1').style.display='none';
-            },6000);
+            // const secondTimeOut = setTimeout(() => {
+            //     document.getElementById('title2').innerHTML = secondMovie.title;
+            //     document.getElementById('par2').innerText = secondMovie.overview;
+            //     const img2 = document.getElementById('img2');
+            //     img2.src = IMAGE_BASE_URL + secondMovie.poster;
+            //     document.querySelector('.movie1 .title1').style.display='none';
+            //     document.querySelector('.movie1 .image1').style.display='none';
+            // },6000);
     
                     // const poster = showPoster(filterTwo);
                     //     console.log(`Movie poster`, poster);
@@ -76,3 +81,30 @@ function getTwo(movies) {
 }
 
 
+
+
+/* inserimento film HTML */
+function setFilms(films) {
+    let htmlFilmsList = '';
+            for(const film of films) {
+                htmlFilmsList += `
+                  <div class="film-card">
+                    <div class="film-card__img">
+                        <img
+                            id="principale"
+                            class="img-grande"
+                            src="${IMAGE_BASE_URL + film.poster_path}"
+                            alt=""
+                            data-pippo="principale"/>
+                    </div>        
+                    <div class="film-card__description">
+                        <h5>${film.title}</h5>
+                        <p>${film.overview}</p>
+                    </div>
+                   </div>`
+            }
+            console.log('film card',htmlFilmsList);
+            const wrapper = document.querySelector('.wrapper');
+            wrapper.innerHTML = htmlFilmsList;
+}
+ 
