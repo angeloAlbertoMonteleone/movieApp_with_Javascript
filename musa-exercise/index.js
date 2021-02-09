@@ -30,7 +30,7 @@ fetch(URL).then(
         const {results: films} = movies;
         const actionFilms = getActionMovies(films);
         console.log(actionFilms);
-        actionMovie(actionFilms);
+        setFilmsEvent(films);
         
 
         // const filterTwo = getTwo(films);

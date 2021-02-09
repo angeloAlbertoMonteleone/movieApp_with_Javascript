@@ -13,7 +13,7 @@ function actionMovie(films) {
     let movie = '';
     for(let film of films) {
         movie += `
-        <div class="card">
+        <div class="card" data-isInvisible="${!film.overview ? false : true}">
             <div class="cover">
                 <img class="image" 
                 src="${IMAGE_BASE_URL + film.poster_path}" />
@@ -26,20 +26,9 @@ function actionMovie(films) {
         </div>
         `;
 
-        container.innerHTML = movie;
-        const card = document.querySelector('.card');
-        const descr = document.querySelector('.description');        
-        if(descr == '') {
-            card.setAttribute('data-isInvisible', 'true')
-        } else {
-            card.setAttribute('data-isInvisible', 'false')
-        }
-        
+        container.innerHTML = movie;        
     }
-
-    
     body.appendChild(wrapper);
-
 }
 
 
