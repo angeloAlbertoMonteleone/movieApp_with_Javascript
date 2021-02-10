@@ -32,7 +32,7 @@ function setFilmsEvent(films) {
     body.appendChild(container);
 }
 
-const title = document.querySelector('.title');
-        title.addEventListener("click",(element, event) => {
-            console.log('event from click eventListener', element, event)
-        })
+// const title = document.querySelector('.title');
+//         title.addEventListener("click",(element, event) => {
+//             console.log('event from click eventListener', element, event)
+//         })
