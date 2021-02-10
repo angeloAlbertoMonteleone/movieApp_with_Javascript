@@ -1,9 +1,11 @@
-body {padding: 0;
-margin: 0;}
+body {padding: 0; margin: 0;}
 
-.wrapper {display: flex; justify-content: center;}
-.container {display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); gap: 20px;}
-.card {border: solid 1px black; padding:10px; box-shadow: 0 15px 15px 0 #888888;}
-[data-isInvisible="false"] {
+.container {max-width: 950px; margin: 0 auto; display: grid;}
+ul {list-style-type: none; margin: 0; padding: 0; overflow: hidden;}
+ul li {display: inline-block;}
+
+button {display:block; margin: 0 auto;}
+
+/* [data-isInvisible="false"] {
     display: none;
-}
+} */

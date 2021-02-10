@@ -8,81 +8,86 @@
   */
 
 const BASE_URL = 'https://api.themoviedb.org/3';
-const MOVIE_GENRE = '/movie/top_rated';
+const MOVIE_TOPRATED = '/movie/top_rated';
+const MOVIE_GENRES = '/genre/movie/list';
 const API_KEY = '?api_key=ebe0a7b19063d864de232de72766c4ee';
-const LANGUAGE_URL = '&language=it-it&page=1'; 
-const URL = BASE_URL + MOVIE_GENRE + API_KEY + LANGUAGE_URL;
+const LANGUAGE_URL = '&language=en-US&page=1'; 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
 
 const body = document.querySelector('body');
 const wrapper = document.querySelector('.wrapper');
+const main = document.querySelector('main');
 
 
-fetch(URL).then(
-    async (topRated) => {
-        const movies = await topRated.json();
-        console.log(movies);
-        if(movies.status_code) {
-            const alert_message = getError(movies.status_code);
-            return alert_message;
-            }
-        
-        const {results: films} = movies;
-        const actionFilms = getActionMovies(films);
-        console.log(actionFilms);
-        setFilmsEvent(films);
-        
+let genresCat = {};
+let genres = {};
 
-        // const filterTwo = getTwo(films);
-        //     console.log(filterTwo);
+// async function controller() {
+//     await movieGenresFetch();
+//     await moviesTopratedFetch();
+// }
+// controller();
 
-            // const firsMovie = {
-            //     title: filterTwo[0].title,
-            //     overview : filterTwo[0].overview,
-            //     poster : filterTwo[0].poster_path
-            // }
-            // const secondMovie = {
-            //     title: filterTwo[1].title,
-            //     overview : filterTwo[1].overview,
-            //     poster : filterTwo[1].poster_path
-            // }
-
-            // const firsTimeOut = setTimeout(() => {
-            //     document.getElementById('title1').innerHTML = firsMovie.title;
-            //     document.getElementById('par1').innerText = firsMovie.overview;
-            //     const img = document.getElementById('img1');
-            //     img.src = IMAGE_BASE_URL + firsMovie.poster;
-            // }, 3000);
+movieGenresFetch().then(() => moviesTopratedFetch());
 
 
-            // const secondTimeOut = setTimeout(() => {
-            //     document.getElementById('title2').innerHTML = secondMovie.title;
-            //     document.getElementById('par2').innerText = secondMovie.overview;
-            //     const img2 = document.getElementById('img2');
-            //     img2.src = IMAGE_BASE_URL + secondMovie.poster;
-            //     document.querySelector('.movie1 .title1').style.display='none';
-            //     document.querySelector('.movie1 .image1').style.display='none';
-            // },6000);
+/* second fetch */
+function movieGenresFetch() {
+    return fetch(BASE_URL + MOVIE_GENRES + API_KEY + LANGUAGE_URL).then(
+        async (genres) => {
+            const moviesGenres = await genres.json();
+            console.log('genres root',moviesGenres);
+
+            genresCat = createMoviesGenres(moviesGenres.genres);
+            genres = moviesGenres.genres;
+            console.log('dictionary of genres:', genresCat);
     
-                    // const poster = showPoster(filterTwo);
-                    //     console.log(`Movie poster`, poster);
-        // }
-        }).catch(error => console.log(error));
-
-
-function getError(code) {
-    if(code === 7) {
-        alert("You must enter a valid API Key");
-    }else {
-        alert("Generic error");
-    }
-}
+            }).catch(err => console.log(err));
     
-function getTwo(movies) {
-    return movies.filter(movie => movie.vote_average >= 8.9)       
-//     movies.filter((value,index,array) => console.log())
 }
 
-function getActionMovies(movies) {
-    return movies.filter((film) => film.genre_ids.find((id) => id == 18));
+/* first fetch */
+function moviesTopratedFetch() {
+    return fetch(BASE_URL + MOVIE_TOPRATED + API_KEY + LANGUAGE_URL).then(
+        async (topRated) => {
+            const movies = await topRated.json();
+            console.log('films root',movies);
+            // if(movies.status_code) {
+            //     const alert_message = getError(movies.status_code);
+            //     return alert_message;
+            //     }
+            
+            const {results: films} = movies;
+            console.log('films extracted from root',films);
+            // const actionFilms = getActionMovies(films);
+            // console.log(actionFilms);
+            setFilmFrag(films);            
+    }).catch(error => console.log(error));
 }
+
+
+// function getError(code) {
+//     if(code === 7) {
+//         alert("You must enter a valid API Key");
+//     }else {
+//         alert("Generic error");
+//     }
+// }
+    
+
+let createMoviesGenres = (arrCat) => 
+    arrCat.reduce((obj, catObj) => {
+        obj[catObj.id] = catObj.name;
+        return obj; 
+    }, {});
+
+
+// function getActionMovies(movies) {
+//     return movies.filter((film) => film.genre_ids.find((id) => id == 18));
+// }
+
+
+// function getTwo(movies) {
+//     return movies.filter(movie => movie.vote_average >= 8.9)       
+// //     movies.filter((value,index,array) => console.log())
+// }

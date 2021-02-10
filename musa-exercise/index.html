@@ -8,10 +8,38 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div class="wrapper"></div>
+    
+    <div class="container">
+
+        <div class="nav">
+            <ul>
+                <li class="link" id="left">Logo</li>
+                <li class="link">Movies</li>
+                <li class="link">Who we are</li>
+                <li class="link">Contact</li>
+            </ul>
+        </div>
+        
+        <div class="filter-list">
+            <h3>Filters</h3>            
+            <form onsubmit="moviesFilter()">
+                <input type="text">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        
+        <main>
+            <div class="wrapper"></div>
+            <button>More Movies</button>
+        </main>
+        
+    </div>
+    
+    
+    
 
     <script src="./index.js"></script>
-    <script src="./events.js" ></script>
+    <script src="./createEl-fragment.js" ></script>
     <!-- <script src="./createEl-html.js"></script>
     <script src="./createEl-append.js"></script>
     <script src="./action-movies.js"></script> -->
