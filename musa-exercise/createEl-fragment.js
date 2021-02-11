@@ -6,25 +6,41 @@ function setFilmFrag(films) {
     for(let film of films) {
         const movie = document.createElement('div');
         movie.classList.add('film-card');
-
-        // let genre = genres.find((value) => value.id == film.genre_ids[0]); 
         
+        function changeIdSpan() {
+            for(let value of film.genre_ids) {
+                if(value == 10749) {
+                    return 'red';
+            } if(value === 35) {
+                return 'green'
+            }
+            }
+        }
+
+        const genreTag = film.genre_ids.map((idCat) => `<span id="${changeIdSpan()}">${genresCat[idCat]}</span> `);
+
+        let genreWithoutComma = " ";
+        genreTag.forEach((element) => {
+                genreWithoutComma+= element + " "
+            }
+        );
+
         movie.innerHTML = `
         <div class="card" data-isInvisible="${!film.overview ? false : true}">
             <div class="cover">
+                <h1 class="title">${film.title}</h1>
                 <img class="image" 
                 src="${IMAGE_BASE_URL + film.poster_path}" />
             </div>
             <div class="info">
-                <h1 class="title">${film.title}</h1>
-                <h3 class="description">${film.overview}</h3>
-                <h5 class="list">${genresCat[film.genre_ids[0]]}</h5>
+                <h4 class="description">${film.overview}</h4>
+                <h5 class="list">${genreWithoutComma}</h5>
             </div>
         </div>
         `;
         
         containerFrag.appendChild(movie);
     }
-
+    wrapper.innerHTML = " ";
     wrapper.appendChild(containerFrag);  
 }
