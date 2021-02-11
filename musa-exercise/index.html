@@ -8,31 +8,46 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    
-    <div class="container">
-
-        <div class="nav">
-            <ul>
-                <li class="link" id="left">Logo</li>
-                <li class="link">Movies</li>
-                <li class="link">Who we are</li>
-                <li class="link">Contact</li>
-            </ul>
-        </div>
+    <div class="nav">
+        <ul>
+            <li class="link" id="left">Logo</li>
+            <li class="link">Movies</li>
+            <li class="link">Who we are</li>
+            <li class="link">Contact</li>
+        </ul>
+    </div>
         
+    <div class="container">    
         <div class="filter-list">
             <h3>Filters</h3>            
-            <form onsubmit="moviesFilter()">
-                <input type="text">
-                <button type="submit">Send</button>
+            <form onsubmit="moviesFilter(this); return false"> 
+                 <!--return false means removing default behavior from onsbmit(refreshing page)  -->
+                <input type="text" name="search" id="search">
+                <button id="submit" type="submit">Send</button>
             </form>
+
+            <form onsubmit="resetForm(this)">
+                <button id="reset" type="submit">Reset</button>
+            </form>
+
+            <div class="filters">
+                <!-- <button id="submit" type="submit">Filters</button> -->
+                
+                <div class="checkbox">
+                    <form action="/action_page.php">
+                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                        <label for="vehicle1"> I have a bike</label><br>
+                        
+                      </form>    
+                </div>
+
+            </div>
         </div>
         
         <main>
             <div class="wrapper"></div>
             <button>More Movies</button>
         </main>
-        
     </div>
     
     
