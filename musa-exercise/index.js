@@ -20,7 +20,8 @@ const main = document.querySelector('main');
 
 
 let genresCat = {};
-let genres = {};
+let genres = [];
+let filmTopRated = [];
 
 // async function controller() {
 //     await movieGenresFetch();
@@ -58,6 +59,8 @@ function moviesTopratedFetch() {
             //     }
             
             const {results: films} = movies;
+            filmTopRated = films;
+
             console.log('films extracted from root',films);
             // const actionFilms = getActionMovies(films);
             // console.log(actionFilms);
@@ -81,6 +84,19 @@ let createMoviesGenres = (arrCat) =>
         return obj; 
     }, {});
 
+
+function moviesFilter(e){
+    const searchElement = e.search.value;
+    const movieValue = filmTopRated.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
+    console.log('input search: ', e.search.value);
+    console.log('movie from search: ', movieValue);
+    setFilmFrag(movieValue); 
+}
+
+function resetForm(){
+    setFilmFrag(filmTopRated);
+    console.log('reset form') 
+}
 
 // function getActionMovies(movies) {
 //     return movies.filter((film) => film.genre_ids.find((id) => id == 18));
