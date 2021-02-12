@@ -17,11 +17,13 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
 const body = document.querySelector('body');
 const wrapper = document.querySelector('.wrapper');
 const main = document.querySelector('main');
+const form = document.getElementById('filter-form');
 
 
 let genresCat = {};
 let genres = [];
 let filmTopRated = [];
+
 
 // async function controller() {
 //     await movieGenresFetch();
@@ -41,10 +43,10 @@ function movieGenresFetch() {
 
             genresCat = createMoviesGenres(moviesGenres.genres);
             genres = moviesGenres.genres;
+            
             console.log('dictionary of genres:', genresCat);
     
             }).catch(err => console.log(err));
-    
 }
 
 /* first fetch */
@@ -85,6 +87,7 @@ let createMoviesGenres = (arrCat) =>
     }, {});
 
 
+
 function moviesFilter(e){
     const searchElement = e.search.value;
     const movieValue = filmTopRated.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
@@ -97,6 +100,23 @@ function resetForm(){
     setFilmFrag(filmTopRated);
     console.log('reset form') 
 }
+
+function openFilterMenu() {
+    createFiltersList(filmTopRated);
+    document.getElementById("divCheckbox").style.display = "block";
+}
+function closeFilters() {
+    document.getElementById("divCheckbox").style.display = "none";
+}
+
+function moviesGenresFilter() {
+    const movieValue = 
+    console.log(movieValue)
+    setFilmFrag(movieValue)
+    console.log('ciao');
+    console.log(genres)
+}
+
 
 // function getActionMovies(movies) {
 //     return movies.filter((film) => film.genre_ids.find((id) => id == 18));
