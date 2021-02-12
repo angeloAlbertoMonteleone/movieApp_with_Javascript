@@ -1,13 +1,13 @@
-body {padding: 0; margin: 0; 
-    background: white url(../movieApp/image/main5/pexels-.jpg) center center no-repeat;
-    background-size: cover;}
+body {padding: 0; margin: 0; background: white url(images/pexels-.jpg) center center repeat; background-size: cover;
+     width: 100%; height: 100vh;}
+.container { margin: 0 auto;}
+.container2 { background-color: white; max-width: 950px; margin: 0 auto; display: grid; grid-template-columns: 1fr 3fr;}
+.nav {height: 60px; margin: 0 auto; background-color: black; display: flex; justify-content: center;}
+ul {list-style-type: none; overflow: hidden; display:flex; justify-content: space-around;}
+ul li { color: white;}
 
-.container { 
-    background: transparent;
-    max-width: 950px; margin: 0 auto; display: grid; grid-template-columns: 1fr 3fr;}
-.nav {max-width: 950px; margin: 0 auto;}
-ul {list-style-type: none; margin: 0; padding: 0; overflow: hidden;}
-ul li {display: inline-block;}
+
+
 .wrapper h5 span {background-color: rgb(231, 195, 195);padding: 5px; font-size: small; border-radius: 5px; }
 .wrapper h5 span#red {background-color: red;}
 .wrapper h5 span#green {background-color: green;}
