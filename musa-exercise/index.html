@@ -10,19 +10,26 @@
 <body>
     <div class="container">
         <div class="nav">
-            <ul >
-                <li class="link">Logo</li>
-                <li class="link">Movies</li>
-                <li class="link">Who we are</li>
-                <li class="link">Contact</li>
+            <ul>
+                <li class="link" onclick="hamburgerMenuMovies()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </li>
+                <li class="link"><a href="">Movies</a></li>
+                <li class="link"><a href="">Who we are</a></li>
+                <li class="link"><a href="">Contact</a></li>
             </ul>
+        </div>
+        <div class="hamburgerMenu">
+            <ul class="ul-ham"></ul>
         </div>
         
     </div>
         
     <div class="container2">    
         <div class="filter-list">
-            <h3>Filters</h3>            
+            <h3>Search Movies</h3>            
             <form onsubmit="moviesFilter(this); return false"> 
                  <!--return false means removing default behavior from onsbmit(refreshing page)  -->
                 <input type="text" name="search" id="search">
@@ -33,8 +40,8 @@
 
             <div class="filters">
                 <!-- <button id="submit" type="submit">Filters</button> -->
-                <button id="filters" type="menu" onclick="openFilterMenu()">Filters</button>
-                <button onclick="closeFilters()">Close</button>
+                <button id="filters" type="menu" onclick="openFilterMenu()">Categories</button>
+                <button id="close-filters" onclick="closeFilters()">Close Categories</button>
 
                 <div class="checkbox" id="divCheckbox">
                     <form id="filter-form" action="moviesGenresFilter()">
@@ -57,6 +64,7 @@
     <script src="./index.js"></script>
     <script src="./createEl-fragment.js" ></script>
     <script src="./filters.js"></script>
+    <script src="./hamburgerMenu.js"></script>
     <!-- <script src="./createEl-html.js"></script>
     <script src="./createEl-append.js"></script>
     <script src="./action-movies.js"></script> -->
