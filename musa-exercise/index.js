@@ -18,7 +18,8 @@ const body = document.querySelector('body');
 const wrapper = document.querySelector('.wrapper');
 const main = document.querySelector('main');
 const form = document.getElementById('filter-form');
-
+const hamburgerMenu = document.querySelector('.hamburgerMenu');
+const ul = document.querySelector('.ul-ham');
 
 let genresCat = {};
 let genres = [];
@@ -103,10 +104,12 @@ function resetForm(){
 
 function openFilterMenu() {
     createFiltersList(filmTopRated);
+    document.getElementById('close-filters').style.display="inline";
     document.getElementById("divCheckbox").style.display = "block";
 }
 function closeFilters() {
     document.getElementById("divCheckbox").style.display = "none";
+    document.getElementById('close-filters').style.display="none";
 }
 
 function moviesGenresFilter() {
@@ -117,6 +120,11 @@ function moviesGenresFilter() {
     console.log(genres)
 }
 
+function hamburgerMenuMovies() {
+    getCatHamburgerMenu(filmTopRated);
+    hamburgerMenu.style.display="block";
+
+}
 
 // function getActionMovies(movies) {
 //     return movies.filter((film) => film.genre_ids.find((id) => id == 18));
