@@ -1,20 +1,44 @@
 body {padding: 0; margin: 0; background: white url(images/pexels-.jpg) center center repeat; background-size: cover;
      width: 100%; height: 100vh;}
-.container { margin: 0 auto;}
-.container2 { background-color: white; max-width: 950px; margin: 0 auto; display: grid; grid-template-columns: 1fr 3fr;}
-.nav {height: 60px; margin: 0 auto; background-color: black; display: flex; justify-content: center;}
-ul {list-style-type: none; overflow: hidden; display:flex; justify-content: space-around;}
-ul li { color: white;}
+
+/* containers */
+.container { margin: 0 auto; position: relative;}
+.container2 {background-color: #024c6f45; max-width: 950px; margin: 0 auto; display: grid; grid-template-columns: 1fr 3fr;}
+
+/* navigation bar */
+.nav {height: 60px; margin: 0 auto; background-color: black; }
+ul {list-style-type: none; overflow: hidden; margin: 0; padding: 0 ;}
+ul li { color: white; float: right;}
+li:first-child {float: left; padding: 15px;}
+li a {display: block; color: white; text-align: center; padding: 20px 20px; text-decoration: none;}
+li div {width: 28px; height: 2px; background-color: white; margin: 6px 0; }
+.hamburgerMenu {position: absolute; top: 0; left: 0; width: 300px; height: 50vh; display: none;}
 
 
 
+/* categories */
 .wrapper h5 span {background-color: rgb(231, 195, 195);padding: 5px; font-size: small; border-radius: 5px; }
 .wrapper h5 span#red {background-color: red;}
 .wrapper h5 span#green {background-color: green;}
 
+/* film-card */
+.film-card {margin: 2rem 0; border-radius: 30px; padding: 15px; background-color: #ffffff94; width: 90%;}
+img {width: 150px;}
+.cover {display: grid; grid-template-columns: 1fr 2fr 1fr; text-align: center; }
+.film-card h5 span {    display: -webkit-inline-box; margin: 2px;}
+h1 {text-align: center; font-size: larger;}
+
+
+/* filters button */
 button {display:block; margin: 0 auto;}
 button#submit {margin: 0; display: inline;}
 button#reset {margin: 5px 0 20px 0;}
+#filter-form {margin: 10px;}
+button#filters, button#close-filters {display: inline;}
+button#close-filters {display: none;}
+.filter-list {margin: 0 auto;}
+.filter-list h3 {text-align: center;}
+
 /* [data-isInvisible="false"] {
     display: none;
 } */
