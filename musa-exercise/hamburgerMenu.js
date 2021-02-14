@@ -5,10 +5,11 @@ function getCatHamburgerMenu(films) {
 
     for (const film of films) {
         movie += `
-        <li id="movie"><a hred="">${genresCat[film.genre_ids[0]]}</a></li>
+        <li onclick="">${film.name}</li>
         `
         
-        ul.innerHTML = movie;
+        hamburgerMenu.innerHTML = movie;
     }
-    hamburgerMenu.appendChild(ul);
+
 }
+
