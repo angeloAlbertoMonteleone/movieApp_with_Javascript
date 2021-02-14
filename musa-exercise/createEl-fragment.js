@@ -27,12 +27,10 @@ function setFilmFrag(films) {
 
         movie.innerHTML = `
         <div class="card" data-isInvisible="${!film.overview ? false : true}">
-            <div class="cover">
-                <h1 class="title">${film.title}</h1>
+            <h1 class="title">${film.title}</h1>    
+            <div class="cover">                    
                 <img class="image" 
                 src="${IMAGE_BASE_URL + film.poster_path}" />
-            </div>
-            <div class="info">
                 <h4 class="description">${film.overview}</h4>
                 <h5 class="list">${genreWithoutComma}</h5>
             </div>
