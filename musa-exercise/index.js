@@ -11,7 +11,8 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const MOVIE_TOPRATED = '/movie/top_rated';
 const MOVIE_GENRES = '/genre/movie/list';
 const API_KEY = '?api_key=ebe0a7b19063d864de232de72766c4ee';
-const LANGUAGE_URL = '&language=en-US&page=1'; 
+const LANGUAGE_URL = '&language=en-US&page=';
+const PAGE_NUMBER_URL = '1'; 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
 
 const body = document.querySelector('body');
@@ -20,9 +21,11 @@ const main = document.querySelector('main');
 const form = document.getElementById('filter-form');
 const hamburgerMenu = document.querySelector('.hamburgerMenu');
 const ul = document.querySelector('.ul-ham');
+const hamMovie = document.querySelector('#ham-movie');
+const loadMoviesButton = document.querySelector('#loadMovies');
 
 let genresCat = {};
-let genres = [];
+let movieegenres = [];
 let filmTopRated = [];
 
 
@@ -37,22 +40,26 @@ movieGenresFetch().then(() => moviesTopratedFetch());
 
 /* second fetch */
 function movieGenresFetch() {
-    return fetch(BASE_URL + MOVIE_GENRES + API_KEY + LANGUAGE_URL).then(
-        async (genres) => {
-            const moviesGenres = await genres.json();
-            console.log('genres root',moviesGenres);
+    return fetch(BASE_URL + MOVIE_GENRES + API_KEY + LANGUAGE_URL + PAGE_NUMBER_URL).then(
+        async (genresM) => {
+            const moviesGenres = await genresM.json();
+            console.log('genres root',moviesGenres.genres);
+            movieegenres = moviesGenres.genres;
+            console.log('genresMovie', movieegenres)
+            let valueGen = '';
+            for(let value of movieegenres) {
+                valueGen += value;
+            }
 
             genresCat = createMoviesGenres(moviesGenres.genres);
-            genres = moviesGenres.genres;
+            console.log('dictionary of genres(genresCat):', genresCat);
             
-            console.log('dictionary of genres:', genresCat);
-    
             }).catch(err => console.log(err));
 }
 
 /* first fetch */
 function moviesTopratedFetch() {
-    return fetch(BASE_URL + MOVIE_TOPRATED + API_KEY + LANGUAGE_URL).then(
+    return fetch(BASE_URL + MOVIE_TOPRATED + API_KEY + LANGUAGE_URL + PAGE_NUMBER_URL).then(
         async (topRated) => {
             const movies = await topRated.json();
             console.log('films root',movies);
@@ -65,6 +72,7 @@ function moviesTopratedFetch() {
             filmTopRated = films;
 
             console.log('films extracted from root',films);
+            console.log('films filmTopRated:', filmTopRated);
             // const actionFilms = getActionMovies(films);
             // console.log(actionFilms);
             setFilmFrag(films);            
@@ -80,7 +88,7 @@ function moviesTopratedFetch() {
 //     }
 // }
     
-
+/* convert movies genres id to name */
 let createMoviesGenres = (arrCat) => 
     arrCat.reduce((obj, catObj) => {
         obj[catObj.id] = catObj.name;
@@ -88,7 +96,7 @@ let createMoviesGenres = (arrCat) =>
     }, {});
 
 
-
+/* how to search and make appearing movies */
 function moviesFilter(e){
     const searchElement = e.search.value;
     const movieValue = filmTopRated.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
@@ -97,39 +105,67 @@ function moviesFilter(e){
     setFilmFrag(movieValue); 
 }
 
+/* reset movies list */
 function resetForm(){
     setFilmFrag(filmTopRated);
     console.log('reset form') 
 }
 
+/* open categories filter menu */
 function openFilterMenu() {
-    createFiltersList(filmTopRated);
+    createFiltersList(movieegenres);
     document.getElementById('close-filters').style.display="inline";
     document.getElementById("divCheckbox").style.display = "block";
 }
+
+/* close categories filter menu */
 function closeFilters() {
     document.getElementById("divCheckbox").style.display = "none";
     document.getElementById('close-filters').style.display="none";
 }
 
+/*  */
 function moviesGenresFilter() {
-    const movieValue = 
     console.log(movieValue)
     setFilmFrag(movieValue)
     console.log('ciao');
     console.log(genres)
 }
 
+/* how open and close hamburger menu - calling hamburgerMenu.js*/
 function hamburgerMenuMovies() {
-    getCatHamburgerMenu(filmTopRated);
-    hamburgerMenu.style.display="block";
+    getCatHamburgerMenu(movieegenres);
+    if(hamburgerMenu.style.display === 'block') {
+        hamburgerMenu.style.display = 'none';
 
+    } else {
+        hamburgerMenu.style.display = 'block';
+    }
 }
+
+/* closing hamburger menu by clicking somewhere else  */
+function closeHamburgerMenu(){
+    if(hamburgerMenu.style.display === 'block') {
+        hamburgerMenu.style.display = 'none';
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function getActionMovies(movies) {
 //     return movies.filter((film) => film.genre_ids.find((id) => id == 18));
 // }
-
 
 // function getTwo(movies) {
 //     return movies.filter(movie => movie.vote_average >= 8.9)       
