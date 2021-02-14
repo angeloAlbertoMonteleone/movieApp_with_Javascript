@@ -7,11 +7,11 @@
     <!-- link CSS -->
     <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+<body >
     <div class="container">
         <div class="nav">
             <ul>
-                <li class="link" onclick="hamburgerMenuMovies()">
+                <li class="button" onclick="hamburgerMenuMovies()">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -21,13 +21,11 @@
                 <li class="link"><a href="">Contact</a></li>
             </ul>
         </div>
-        <div class="hamburgerMenu">
-            <ul class="ul-ham"></ul>
-        </div>
+        <div class="hamburgerMenu"> </div>
         
     </div>
         
-    <div class="container2">    
+    <div class="container2" onclick="closeHamburgerMenu()">    
         <div class="filter-list">
             <h3>Search Movies</h3>            
             <form onsubmit="moviesFilter(this); return false"> 
@@ -54,7 +52,7 @@
         
         <main>
             <div class="wrapper"></div>
-            <button>More Movies</button>
+            <button id="moreMovies">More Movies</button>
         </main>
     </div>
     
