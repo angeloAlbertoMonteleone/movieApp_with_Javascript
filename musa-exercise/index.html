@@ -6,12 +6,14 @@
     <title>Document</title>
     <!-- link CSS -->
     <link rel="stylesheet" href="./style/style.css">
+    <!-- script -->
+    <script type="module" src="./js/app.js"></script>
 </head>
 <body >
     <div class="container">
         <div class="nav">
             <ul>
-                <li class="button" id="buttonHamburgerMenu" onclick="hamburgerMenuMovies()">
+                <li class="button" id="buttonHamburgerMenu">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -25,25 +27,24 @@
         
     </div>
         
-    <div class="container2" id="container2" onclick="closeHamburgerMenu()">    
+    <div class="container2" id="container2" >    
         <div class="filter-list">
             <h3>Search Movies</h3>            
-            <form id="form" onsubmit="moviesFilter(this); return false"> 
+            <form id="form" > 
                  <!--return false means removing default behavior from onsbmit(refreshing page)  -->
                 <input type="text" name="search" id="search">
                 <button id="submit" type="submit">Send</button>
-                <button id="reset" type="reset" onclick="resetForm()">Reset</button>
+                <button id="reset" type="reset">Reset</button>
             </form>
 
 
             <div class="filters">
                 <!-- <button id="submit" type="submit">Filters</button> -->
-                <button id="filters" type="menu" onclick="openFilterMenu()">Categories</button>
-                <button id="close-filters" onclick="closeFilters()">Close Categories</button>
+                <button id="filters" type="menu">Categories</button>
+                <button id="close-filters" >Close Categories</button>
 
                 <div class="checkbox" id="divCheckbox">
-                    <form id="filter-form" action="moviesGenresFilter()">
-                        
+                    <form id="filter-form" >
                     </form>    
                 </div>
 
@@ -52,14 +53,9 @@
         
         <main>
             <div class="wrapper"></div>
-            <button id="moreMovies" onmouseover="fetchMoreMovies()" onclick="loadMoreMovie()">More Movies</button>
+            <button id="moreMovies">More Movies</button>
         </main>
     </div>
-    
-    
-    <script src="./js/app.js"></script>
-    <script src="./js/renderMovies.js"></script>
-    
     
     <!-- <script src="./createEl-html.js"></script>
     <script src="./createEl-append.js"></script>
