@@ -1,178 +1,65 @@
 {'use strict'};
+import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages} from './fetch.js'
+import { hamburgerMenuMovies, closeHamburgerMenu, openFilterMenu, closeFilters, loadMoreMovie, moviesFilter} from "./utilities.js";
+import {resetForm} from "./forms.js";
 
 
-const BASE_URL = 'https://api.themoviedb.org/3';
-const MOVIE_TOPRATED = '/movie/top_rated';
-const MOVIE_GENRES = '/genre/movie/list';
-const API_KEY = '?api_key=ebe0a7b19063d864de232de72766c4ee';
-const LANGUAGE_URL = '&language=en-US&page=';
-const PAGE_NUMBER_URL = '1';  
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
-/* create a new folder [name it as you like] with 3 html css and js files
-1. recover the api from the movie db (https://developers.themoviedb.org/3/movies/get-top-rated-movies) and print the list of recovered films on the console
-2. manage an error from the API, for example putting a wrong API key and displaying the error on the screen
-3. from the list retrieved, first select two films and show them on the screen showing the cover, title (title) and description (overview)
-4. set a timer that after 3 seconds recovers one of the two films selected before and makes it disappear, and after another 3 seconds makes it visible again
-  */
+export let count = 0;
 
- const body = document.querySelector('body');
- const wrapper = document.querySelector('.wrapper');
- const main = document.querySelector('main');
- const form = document.getElementById('filter-form');
- const hamburgerMenu = document.querySelector('.hamburgerMenu');
- const ul = document.querySelector('.ul-ham');
- const hamMovie = document.querySelector('#ham-movie');
- const loadMoviesButton = document.querySelector('#loadMovies');
-
-
- let genresCat = {}; let movieegenres = []; let filmTopRated = []; let nextMovies = []; 
+const body = document.querySelector('body');
+export const wrapper = document.querySelector('.wrapper');
+const main = document.querySelector('main');
+export const form = document.getElementById('filter-form');
+export const hamburgerMenu = document.querySelector('.hamburgerMenu');
+const ul = document.querySelector('.ul-ham');
+const hamMovie = document.querySelector('#ham-movie');
+const loadMoviesButton = document.querySelector('#loadMovies');
+export const checkbox = document.getElementById('divCheckbox');
 
 
 
 movieGenresFetch().then(() => moviesTopratedFetch());
 
+/* open hamburger menu */
+const hamButton = document.querySelector('#buttonHamburgerMenu');
+hamButton.addEventListener('click', hamburgerMenuMovies);
 
-function movieGenresFetch() {
-    return fetch(BASE_URL + MOVIE_GENRES + API_KEY + LANGUAGE_URL + PAGE_NUMBER_URL).then(
-        async (genresM) => {
-            let moviesGenres = await genresM.json();
-            console.log('genres root',moviesGenres.genres);
-            movieegenres = moviesGenres.genres;
-            console.log('genresMovie', movieegenres)
+/* close hamburger menu */
+const container2 = document.querySelector('#container2');
+container2.addEventListener('click',closeHamburgerMenu);
 
-            genresCat = createMoviesGenres(moviesGenres.genres);
-            console.log('dictionary of genres(genresCat):', genresCat);
-            
-            }).catch(err => console.log(err));
+
+export const filtersForm = document.querySelector('#form');
+filtersForm.onsubmit = (el) => {
+    moviesFilter(el.currentTarget);
+    return false;
 }
 
-/* first fetch */
-function moviesTopratedFetch() {
-    return fetch(BASE_URL + MOVIE_TOPRATED + API_KEY + LANGUAGE_URL + PAGE_NUMBER_URL).then(
-        async (topRated) => {
-            const movies = await topRated.json();
-            console.log('films root',movies);
-            // if(movies.status_code) {
-            //     const alert_message = getError(movies.status_code);
-            //     return alert_message;
-            //     }
-            
-            const {results: films} = movies;
-            filmTopRated = films;
+/* reset Movies and filters */
+const resetButton = document.querySelector('#reset');
+resetButton.addEventListener('click',resetForm);
 
-            console.log('films extracted from root',films);
-            console.log('films filmTopRated:', filmTopRated);
-            // const actionFilms = getActionMovies(films);
-            // console.log(actionFilms);
-            setFilmFrag(films);            
-    }).catch(error => console.log(error));
-}
+/* open filters */
+const openFiltersButton = document.querySelector('#filters');
+openFiltersButton.addEventListener('click', openFilterMenu);
 
+/* close filters */
+export const closeFiltersButton = document.querySelector('#close-filters');
+closeFiltersButton.addEventListener('click', closeFilters);
 
- /* next movies fetch */
-function fetchMoreMovies() {
-    return fetch(BASE_URL + MOVIE_TOPRATED + API_KEY + LANGUAGE_URL + '2').then(
-        async (topRated) => {
-            let topRated2 = await topRated.json(); 
-            console.log(topRated2);
-
-            let {results: films} = topRated2;
-            nextMovies = films;
-            console.log('next movies',nextMovies)
-        }
-    )
-}
-
-
-
-/* convert movies genres id to name */
-let createMoviesGenres = (arrCat) => 
-    arrCat.reduce((obj, catObj) => {
-        obj[catObj.id] = catObj.name;
-        return obj; 
-    }, {});
-
-
-/* how to search and make appearing movies */
-function moviesFilter(e){
-    const searchElement = e.search.value;
-    const movieValue = filmTopRated.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
-    console.log('input search: ', e.search.value);
-    console.log('movie from search: ', movieValue);
-    setFilmFrag(movieValue); 
-}
-
-/* reset movies list */
-function resetForm(){
-    setFilmFrag(filmTopRated);
-    console.log('reset form') 
-}
-
-/* open categories filter menu */
-function openFilterMenu() {
-    createFiltersList(movieegenres);
-    document.getElementById('close-filters').style.display="inline";
-    document.getElementById("divCheckbox").style.display = "block";
-}
-
-/* close categories filter menu */
-function closeFilters() {
-    document.getElementById("divCheckbox").style.display = "none";
-    document.getElementById('close-filters').style.display="none";
-}
-
-/*  */
-function moviesGenresFilter() {
-    console.log(movieValue)
-    setFilmFrag(movieValue)
-    console.log('ciao');
-    console.log(genres)
-}
-
-/* how open and close hamburger menu - calling hamburgerMenu.js*/
-function hamburgerMenuMovies() {
-    getCatHamburgerMenu(movieegenres);
-    if(hamburgerMenu.style.display === 'block') {
-        hamburgerMenu.style.display = 'none';
-
+/* button for more movies */
+const moreMoviesButton = document.querySelector('#moreMovies');
+moreMoviesButton.onmouseover = () => {
+    if(totPages == 500) {
+        moreMoviesButton.style.display = "none";
     } else {
-        hamburgerMenu.style.display = 'block';
+        count++;
+        fetchMoreMovies();
     }
+};
+moreMoviesButton.onclick = () => {
+    loadMoreMovie();
 }
 
-/* closing hamburger menu by clicking somewhere else  */
-function closeHamburgerMenu(){
-    if(hamburgerMenu.style.display === 'block') {
-        hamburgerMenu.style.display = 'none';
-    }
-}
-
-
-function loadMoreMovie() {
-    setFilmFrag(nextMovies)
-}
-
-// async function controller() {
-//     await movieGenresFetch();
-//     await moviesTopratedFetch();
-// }
-// controller();
-
-
-// function getError(code) {
-//     if(code === 7) {
-//         alert("You must enter a valid API Key");
-//     }else {
-//         alert("Generic error");
-//     }
-// }
-
-
-// function getActionMovies(movies) {
-//     return movies.filter((film) => film.genre_ids.find((id) => id == 18));
-// }
-
-// function getTwo(movies) {
-//     return movies.filter(movie => movie.vote_average >= 8.9)       
-// //     movies.filter((value,index,array) => console.log())
-// }
+// const filterForm = document.querySelector('#filter-form');
+// filterForm.addEventListener('action', moviesGenresFilter);
