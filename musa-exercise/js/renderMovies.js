@@ -1,7 +1,10 @@
-{'use strict'};
+import { wrapper, hamburgerMenu, form} from './app.js';
+import {genresCat} from './fetch.js'
+import {IMAGE_BASE_URL} from "./environments.js";
 
 
-function setFilmFrag(films) {
+
+export function setFilmFrag(films) {
     const containerFrag = new DocumentFragment();
     
     for(let film of films) {
@@ -37,7 +40,43 @@ function setFilmFrag(films) {
             </div>
         </div>
         `;
+
+        containerFrag.appendChild(movie);
+    }
+    wrapper.appendChild(containerFrag);  
+}
+
+
+
+
+
+export function setFilmFragReset(films) {
+    const containerFrag = new DocumentFragment();
+    
+    for(let film of films) {
+        const movie = document.createElement('div');
+        movie.classList.add('film-card');
         
+        const genreTag = film.genre_ids.map((idCat) => `<span id="${genresCat[idCat]}">${genresCat[idCat]}</span> `);
+
+        let genreWithoutComma = " ";
+        genreTag.forEach((element) => {
+                genreWithoutComma+= element + " "
+            }
+        );
+
+        movie.innerHTML = `
+        <div class="card" data-isInvisible="${!film.overview ? false : true}">
+            <h1 class="title">${film.title}</h1>    
+            <div class="cover">                    
+                <img class="image" 
+                src="${IMAGE_BASE_URL + film.poster_path}" />
+                <h4 class="description">${film.overview}</h4>
+                <h5 class="list">${genreWithoutComma}</h5>
+            </div>
+        </div>
+        `;
+
         containerFrag.appendChild(movie);
     }
     wrapper.innerHTML = " ";
@@ -49,8 +88,7 @@ function setFilmFrag(films) {
 
 
 
-
-function setFilmsEvent(films) {
+export function setFilmsEvent(films) {
     const container = new DocumentFragment();
     
     for(let film of films) {
@@ -90,7 +128,7 @@ function setFilmsEvent(films) {
 
 
 
-function createFiltersList(films) {
+export function createFiltersList(films) {
     // const genre = film.genres_id.map((idCat) => genresCat[idCat]);
 
         let movie = " ";
@@ -107,7 +145,7 @@ function createFiltersList(films) {
 
 
 
-function getCatHamburgerMenu(films) {
+export function getCatHamburgerMenu(films) {
     let movie = ' ';
 
     for (const film of films) {
