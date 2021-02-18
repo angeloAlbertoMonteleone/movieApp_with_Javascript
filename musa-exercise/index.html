@@ -9,7 +9,7 @@
     <!-- script -->
     <script type="module" src="./js/app.js"></script>
 </head>
-<body >
+<body>
     <div class="container">
         <div class="nav">
             <ul>
@@ -18,6 +18,7 @@
                     <div></div>
                     <div></div>
                 </li>
+
                 <li class="link"><a href="">Movies</a></li>
                 <li class="link"><a href="">Who we are</a></li>
                 <li class="link"><a href="">Contact</a></li>
@@ -27,10 +28,11 @@
         
     </div>
         
-    <div class="container2" id="container2" >    
+    <div class="container2" id="container2" >
+
         <div class="filter-list">
-            <h3>Search Movies</h3>            
-            <form id="form" > 
+            <h3>Search All Movies</h3>            
+            <form id="form"> 
                  <!--return false means removing default behavior from onsbmit(refreshing page)  -->
                 <input type="text" name="search" id="search">
                 <button id="submit" type="submit">Send</button>
@@ -44,7 +46,8 @@
                 <button id="close-filters" >Close Categories</button>
 
                 <div class="checkbox" id="divCheckbox">
-                    <form id="filter-form" >
+                    <form id="filter-form">
+
                     </form>    
                 </div>
 
@@ -52,6 +55,7 @@
         </div>
         
         <main>
+            <h1>Top Rated Movies</h1>
             <div class="wrapper"></div>
             <button id="moreMovies">More Movies</button>
         </main>
