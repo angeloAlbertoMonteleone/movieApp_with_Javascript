@@ -1,7 +1,7 @@
-import {setFilmFrag, createFiltersList, getCatHamburgerMenu} from './renderMovies.js';
-import {nextMovies, movieegenres, filmTopRated} from './fetch.js'
-import {checkbox, hamburgerMenu, closeFiltersButton, wrapper} from './app.js'
-
+import {setFilmFragForSearch, createFiltersList, getCatHamburgerMenu, setFilmFragForMore} from './renderMovies.js';
+import {nextMovies, movieegenres, filmTopRated, totPages, } from './fetch.js'
+import {checkbox, hamburgerMenu, closeFiltersButton, wrapper, inputValue} from './app.js'
+import {END_POINT_SEARCH } from "./environments.js";
 
 
 
@@ -15,11 +15,25 @@ export let createMoviesGenres = (arrCat) =>
 
 /* how to search and make appearing movies */
 export function moviesFilter(e){
+    debugger;
     const searchElement = e.search.value;
-    const movieValue = filmTopRated.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
-    console.log('input search: ', e.search.value);
-    console.log('movie from search: ', movieValue);
-        setFilmFrag(movieValue);
+    const newUrl = END_POINT_SEARCH + '&query=' + searchElement;
+    fetch(newUrl).then((res) => res.json())
+        .then((data) => {
+            console.log('data: ',data)
+            setFilmFragForSearch(data.results);
+            })
+        .catch((err) => {
+            console.log('error',err)
+            });
+
+            inputValue.value = '';
+    console.log(searchElement);
+
+    
+    // const movieValue = nextMovies.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
+    // console.log('input search: ', e.search.value);
+    // console.log('movie from search: ', movieValue);
 }
 
 
@@ -39,7 +53,7 @@ export function closeFilters() {
 /*  */
 export function moviesGenresFilter() {
     console.log(movieValue)
-    setFilmFrag(movieValue)
+    setFilmFragForSearch(movieValue)
     console.log('ciao');
     console.log(genres)
 }
@@ -47,9 +61,9 @@ export function moviesGenresFilter() {
 /* how open and close hamburger menu - calling hamburgerMenu.js*/
 export function hamburgerMenuMovies() {
     getCatHamburgerMenu(movieegenres);
+    console.log(movieegenres)
     if(hamburgerMenu.style.display === 'block') {
         hamburgerMenu.style.display = 'none';
-
     } else {
         hamburgerMenu.style.display = 'block';
     }
@@ -64,7 +78,12 @@ export function closeHamburgerMenu(){
 
 
 export function loadMoreMovie() {
-    setFilmFrag(nextMovies)
+    setFilmFragForMore(nextMovies)
+}
+
+export function loadMovieCat() {
+    const filteredCat = films.filter((movie) => movie);
+    console.log(filteredCat);
 }
 
 // async function controller() {
