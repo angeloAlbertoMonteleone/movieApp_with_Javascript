@@ -1,6 +1,6 @@
-import { BASE_URL, MOVIE_GENRES, API_KEY, LANGUAGE_URL, PAGE_NUMBER_URL,MOVIE_TOPRATED } from "./environments.js";
+import { BASE_URL, MOVIE_GENRES, API_KEY, LANGUAGE_URL, PAGE_NUMBER_URL,MOVIE_TOPRATED,  END_POINT_SEARCH} from "./environments.js";
 import {createMoviesGenres} from './utilities.js';
-import {setFilmFrag} from './renderMovies.js'
+import {setFilmFragForReset, setFilmFragForSearch} from './renderMovies.js'
 import {count} from './app.js';
 // import {movieegenres,filmTopRated, nextMovies} from "./app.js";
 
@@ -11,6 +11,7 @@ export let movieegenres = [];
 export let filmTopRated = []; 
 export let nextMovies = []; 
 export let totPages = [];
+export let searchMovies = [];
 
 /* second fetch called before the movies list */
 export function movieGenresFetch() {
@@ -26,6 +27,8 @@ export function movieGenresFetch() {
             
             }).catch(err => console.log(err));
 }
+
+
 
 /* first fetch */
 export function moviesTopratedFetch() {
@@ -45,9 +48,10 @@ export function moviesTopratedFetch() {
             console.log('films filmTopRated:', filmTopRated);
             // const actionFilms = getActionMovies(films);
             // console.log(actionFilms);
-            setFilmFrag(films);            
+            setFilmFragForSearch(films);            
     }).catch(error => console.log(error));
 }
+
 
 
  /* next movies fetch */
