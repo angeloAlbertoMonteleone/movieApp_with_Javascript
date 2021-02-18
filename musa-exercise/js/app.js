@@ -1,5 +1,5 @@
 {'use strict'};
-import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages} from './fetch.js'
+import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages, filmTopRated} from './fetch.js'
 import { hamburgerMenuMovies, closeHamburgerMenu, openFilterMenu, closeFilters, loadMoreMovie, moviesFilter} from "./utilities.js";
 import {resetForm} from "./forms.js";
 
@@ -15,6 +15,7 @@ const ul = document.querySelector('.ul-ham');
 const hamMovie = document.querySelector('#ham-movie');
 const loadMoviesButton = document.querySelector('#loadMovies');
 export const checkbox = document.getElementById('divCheckbox');
+export let inputValue = document.getElementById('search');
 
 
 
@@ -30,14 +31,18 @@ container2.addEventListener('click',closeHamburgerMenu);
 
 
 export const filtersForm = document.querySelector('#form');
-filtersForm.onsubmit = (el) => {
-    moviesFilter(el.currentTarget);
+filtersForm.onsubmit = (element) => {
+    moviesFilter(element.currentTarget);
+    moreMoviesButton.style.display="none";
     return false;
 }
 
 /* reset Movies and filters */
 const resetButton = document.querySelector('#reset');
-resetButton.addEventListener('click',resetForm);
+resetButton.addEventListener('click',() => {
+    resetForm();
+    moreMoviesButton.style.display="block";
+});
 
 /* open filters */
 const openFiltersButton = document.querySelector('#filters');
@@ -48,7 +53,7 @@ export const closeFiltersButton = document.querySelector('#close-filters');
 closeFiltersButton.addEventListener('click', closeFilters);
 
 /* button for more movies */
-const moreMoviesButton = document.querySelector('#moreMovies');
+let moreMoviesButton = document.querySelector('#moreMovies');
 moreMoviesButton.onmouseover = () => {
     if(totPages == 500) {
         moreMoviesButton.style.display = "none";
@@ -59,6 +64,7 @@ moreMoviesButton.onmouseover = () => {
 };
 moreMoviesButton.onclick = () => {
     loadMoreMovie();
+    completeMovieList();
 }
 
 // const filterForm = document.querySelector('#filter-form');
