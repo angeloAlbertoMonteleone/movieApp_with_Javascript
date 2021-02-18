@@ -1,8 +1,8 @@
-import {setFilmFrag, setFilmFragReset} from "./renderMovies.js";
+import {setFilmFragForSearch, setFilmFragForReset} from "./renderMovies.js";
 import {filmTopRated} from "./fetch.js";
 
 /* reset movies list */
 export function resetForm(){
-    setFilmFragReset(filmTopRated);
+    setFilmFragForReset(filmTopRated);
     console.log('reset form', filmTopRated) 
 }
