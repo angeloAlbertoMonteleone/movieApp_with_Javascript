@@ -1,9 +1,9 @@
 import {setFilmFragForSearch, createFiltersList, getCatHamburgerMenu, setFilmFragForMore} from './renderMovies.js';
-import {nextMovies, movieegenres, filmTopRated, totPages, } from './fetch.js'
+import {nextMovies, movieegenres, filmTopRated, totPages} from './fetch.js'
 import {checkbox, hamburgerMenu, closeFiltersButton, wrapper, inputValue} from './app.js'
 import {END_POINT_SEARCH } from "./environments.js";
 
-
+export let searchMovies = [];
 
 /* convert movies genres id to name */
 export let createMoviesGenres = (arrCat) => 
@@ -22,11 +22,12 @@ export function moviesFilter(e){
         .then((data) => {
             console.log('data: ',data)
             setFilmFragForSearch(data.results);
+            searchMovies.push(data.results);
+            console.log(searchMovies);  
             })
         .catch((err) => {
             console.log('error',err)
             });
-
             inputValue.value = '';
     console.log(searchElement);
 
@@ -35,6 +36,34 @@ export function moviesFilter(e){
     // console.log('input search: ', e.search.value);
     // console.log('movie from search: ', movieValue);
 }
+
+export function createNewMovie(e) {
+    const createTitle = e.title.value;
+    const createDescr = e.description.value;
+    const createCat = e.category.value;
+
+    const newFilm = {
+        adult: false,
+        backdrop_path: "",
+        genre_ids: [createCat],
+        id: 0,
+        original_language: "en",
+        original_title: "",
+        overview: createDescr,
+        popularity: 0,
+        poster_path: "0",
+        release_date: "",
+        title: createTitle,
+        video: false,
+        vote_average: 0,
+        vote_count: 0
+    }
+    // searchMovies.push(newFilm);
+    filmTopRated.push(newFilm);
+    setFilmFragForMore(filmTopRated);
+    console.log(filmTopRated);
+}
+
 
 
 /* open categories filter menu */
@@ -85,6 +114,10 @@ export function loadMovieCat() {
     const filteredCat = films.filter((movie) => movie);
     console.log(filteredCat);
 }
+
+
+/* function to filter movies category*/
+
 
 // async function controller() {
 //     await movieGenresFetch();
