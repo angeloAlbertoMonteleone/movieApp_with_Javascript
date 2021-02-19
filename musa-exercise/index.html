@@ -24,7 +24,9 @@
                 <li class="link"><a href="">Contact</a></li>
             </ul>
         </div>
-        <div class="hamburgerMenu"> </div>
+        <div class="hamburgerMenu">
+            <ul id="containerHam"></ul>
+        </div>
         
     </div>
         
@@ -34,11 +36,10 @@
             <h3>Search All Movies</h3>            
             <form id="form"> 
                  <!--return false means removing default behavior from onsbmit(refreshing page)  -->
-                <input type="text" name="search" id="search">
+                <input type="text" name="search" id="search" placeholder="search">
                 <button id="submit" type="submit">Send</button>
                 <button id="reset" type="reset">Reset</button>
             </form>
-
 
             <div class="filters">
                 <!-- <button id="submit" type="submit">Filters</button> -->
@@ -46,11 +47,16 @@
                 <button id="close-filters" >Close Categories</button>
 
                 <div class="checkbox" id="divCheckbox">
-                    <form id="filter-form">
-
-                    </form>    
+                    <form id="filter-form"></form>    
                 </div>
 
+                <h3>Create a new movie</h3>
+                <form id="createNewMovie">
+                    <input type="text" name="title" placeholder="title..">
+                    <input type="text" name="description" placeholder="description..">
+                    <input type="text" name="category" placeholder="categories..">
+                    <button id="submitNewMovie" type="submit">Create it!</button>
+                </form>
             </div>
         </div>
         
