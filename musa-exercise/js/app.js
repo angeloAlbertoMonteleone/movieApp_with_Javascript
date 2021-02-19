@@ -1,7 +1,9 @@
 {'use strict'};
-import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages, filmTopRated} from './fetch.js'
-import { hamburgerMenuMovies, closeHamburgerMenu, openFilterMenu, closeFilters, loadMoreMovie, moviesFilter} from "./utilities.js";
+
+import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages, filmTopRated, movieegenres} from './fetch.js'
+import { hamburgerMenuMovies, closeHamburgerMenu, openFilterMenu, closeFilters, loadMoreMovie, moviesFilter, createNewMovie} from "./utilities.js";
 import {resetForm} from "./forms.js";
+
 
 
 export let count = 0;
@@ -16,7 +18,9 @@ const hamMovie = document.querySelector('#ham-movie');
 const loadMoviesButton = document.querySelector('#loadMovies');
 export const checkbox = document.getElementById('divCheckbox');
 export let inputValue = document.getElementById('search');
-
+const titleForm = document.getElementById('title');
+const descriptionForm = document.getElementById('description')
+const categoryForm = document.getElementById('category')
 
 
 movieGenresFetch().then(() => moviesTopratedFetch());
@@ -29,6 +33,12 @@ hamButton.addEventListener('click', hamburgerMenuMovies);
 const container2 = document.querySelector('#container2');
 container2.addEventListener('click',closeHamburgerMenu);
 
+/* form to create new Movie*/
+const formCreateNewMovie = document.querySelector('#createNewMovie');
+formCreateNewMovie.onsubmit = (element) => {
+    createNewMovie(element.currentTarget);
+    return false;
+}
 
 export const filtersForm = document.querySelector('#form');
 filtersForm.onsubmit = (element) => {
@@ -66,6 +76,10 @@ moreMoviesButton.onclick = () => {
     loadMoreMovie();
     completeMovieList();
 }
+
+
+export const liHam = document.querySelector('li');
+
 
 // const filterForm = document.querySelector('#filter-form');
 // filterForm.addEventListener('action', moviesGenresFilter);
