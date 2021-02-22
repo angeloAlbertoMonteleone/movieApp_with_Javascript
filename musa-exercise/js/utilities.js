@@ -1,7 +1,8 @@
-import {setFilmFragForSearch, createFiltersList, getCatHamburgerMenu, setFilmFragForMore} from './renderMovies.js';
+import {setFilmFragForSearch,  getCatHamburgerMenu, setFilmFragForMore} from './renderMovies.js';
 import {nextMovies, movieegenres, filmTopRated, totPages} from './fetch.js'
 import {checkbox, hamburgerMenu, closeFiltersButton, wrapper, inputValue} from './app.js'
 import {END_POINT_SEARCH } from "./environments.js";
+import { createFiltersList } from "./forms.js";
 
 export let searchMovies = [];
 
@@ -41,7 +42,8 @@ export function createNewMovie(e) {
     const createTitle = e.title.value;
     const createDescr = e.description.value;
     const createCat = e.category.value;
-
+    
+    
     const newFilm = {
         adult: false,
         backdrop_path: "",
@@ -60,7 +62,7 @@ export function createNewMovie(e) {
     }
     // searchMovies.push(newFilm);
     filmTopRated.push(newFilm);
-    setFilmFragForMore(filmTopRated);
+    // setFilmFragForMore(filmTopRated);
     console.log(filmTopRated);
 }
 
@@ -75,8 +77,7 @@ export function openFilterMenu() {
 
 /* close categories filter menu */
 export function closeFilters() {
-    checkbox.style.display = "none";
-    closeFiltersButton.style.display="none";
+    checkbox.style.display="none";
 }
 
 /*  */
