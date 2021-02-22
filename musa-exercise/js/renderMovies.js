@@ -22,14 +22,6 @@ export function setFilmFragForSearch(films) {
             }
         }
 
-        const genreTag = film.genre_ids.map((idCat) => `<span id="${changeIdSpan()}">${genresCat[idCat]}</span> `);
-
-        let genreWithoutComma = " ";
-        genreTag.forEach((element) => {
-                genreWithoutComma+= element + " "
-            }
-        );
-
         movie.innerHTML = `
         <div class="card" data-isInvisible="${!film.overview ? false : true}">
             <h1 class="title">${film.title}</h1>    
@@ -37,7 +29,7 @@ export function setFilmFragForSearch(films) {
                 <img class="image" 
                 src="${IMAGE_BASE_URL + film.poster_path}" />
                 <h4 class="description">${film.overview}</h4>
-                <h5 class="list">${genreWithoutComma}</h5>
+                <h5 class="list">${film.genre_ids.map((idCat) => `<span id="${changeIdSpan()}">${genresCat[idCat]}</span> `).join(' ')}</h5>
             </div>
         </div>
         `;
@@ -58,15 +50,9 @@ export function setFilmFragForReset(films) {
     for(let film of films) {
         const movie = document.createElement('div');
         movie.classList.add('film-card');
+                
+
         
-        const genreTag = film.genre_ids.map((idCat) => `<span id="${genresCat[idCat]}">${genresCat[idCat]}</span> `);
-
-        let genreWithoutComma = " ";
-        genreTag.forEach((element) => {
-                genreWithoutComma+= element + " "
-            }
-        );
-
         movie.innerHTML = `
         <div class="card" data-isInvisible="${!film.overview ? false : true}">
             <h1 class="title">${film.title}</h1>    
@@ -74,7 +60,7 @@ export function setFilmFragForReset(films) {
                 <img class="image" 
                 src="${IMAGE_BASE_URL + film.poster_path}" />
                 <h4 class="description">${film.overview}</h4>
-                <h5 class="list">${genreWithoutComma}</h5>
+                <h5 class="list">${film.genre_ids.map((idCat) => `<span id="${genresCat[idCat]}">${genresCat[idCat]}</span> `).join('')}</h5>
             </div>
         </div>
         `;
@@ -96,14 +82,7 @@ export function setFilmFragForMore(films) {
         const movie = document.createElement('div');
         movie.classList.add('film-card');
         
-        const genreTag = film.genre_ids.map((idCat) => `<span id="${genresCat[idCat]}">${genresCat[idCat]}</span> `);
-
-        let genreWithoutComma = " ";
-        genreTag.forEach((element) => {
-                genreWithoutComma+= element + " "
-            }
-        );
-
+        
         if(film.poster_path) {
             movie.innerHTML = `<div class="card" data-isInvisible="${!film.overview ? false : true}">
                                     <h1 class="title">${film.title}</h1>    
@@ -111,7 +90,7 @@ export function setFilmFragForMore(films) {
                                         <img class="image" 
                                         src="${IMAGE_BASE_URL + film.poster_path}" />
                                         <h4 class="description">${film.overview}</h4>
-                                        <h5 class="list">${genreWithoutComma}</h5>
+                                        <h5 class="list">${film.genre_ids.map((idCat) => `<span id="${genresCat[idCat]}">${genresCat[idCat]}</span> `).join('')}</h5>
                                     </div>
                                 </div>`;
         } 
@@ -164,31 +143,12 @@ export function setFilmsEvent(films) {
 
 
 
-
-
-export function createFiltersList(films) {
-    // const genre = film.genres_id.map((idCat) => genresCat[idCat]);
-
-        let movie = " ";
-        
-    for (let film of films) {
-        movie += `
-        <input id="checkbox" type="checkbox" name="${film.name}" value="${film.name}" onchange="moviesGenresFilter()">
-        <label for="${film.name}">${film.name}</label><br>`;
-
-        
-        form.innerHTML = movie;        
-    }    
-}
-
-
-
 export function getCatHamburgerMenu(films) {
     let movie = ' ';
     for (const film of films) {
         
         movie += `
-        <li onclick="${loadMovieCat()}" id="${film.id}">${film.name}</li>
+        <li onclick="" id="${film.id}">${film.name}</li>
         `
         hamburgerMenu.innerHTML = movie;
     }
