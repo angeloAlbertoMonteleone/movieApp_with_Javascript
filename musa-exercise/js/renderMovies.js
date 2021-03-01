@@ -12,14 +12,27 @@ export function setFilmFragForSearch(films) {
         const movie = document.createElement('div');
         movie.classList.add('film-card');
         
-        function changeIdSpan() {
-            for(let value of film.genre_ids) {
-                if(value == 10749) {
-                    return 'red';
-            } if(value === 35) {
-                return 'green'
+        function changeIdSpan(id) {
+            let color = " ";
+            switch(id) {
+                case 12:
+                case 14:
+                    color = 'red';
+                    break;
+                case 16:
+                case 18:
+                    color = 'pink';
+                    break;
+                case 27:
+                case 28:
+                    color = 'green';
+                    break;
+                case 35:
+                case 36:
+                    color = 'yellow';
+                    break;
             }
-            }
+            return color;
         }
 
         movie.innerHTML = `
@@ -29,7 +42,7 @@ export function setFilmFragForSearch(films) {
                 <img class="image" 
                 src="${IMAGE_BASE_URL + film.poster_path}" />
                 <h4 class="description">${film.overview}</h4>
-                <h5 class="list">${film.genre_ids.map((idCat) => `<span id="${changeIdSpan()}">${genresCat[idCat]}</span> `).join(' ')}</h5>
+                <h5 class="list">${film.genre_ids.map((idCat) => `<span id="${changeIdSpan(idCat)}">${genresCat[idCat]}</span> `).join(' ')}</h5>
             </div>
         </div>
         `;
@@ -44,7 +57,7 @@ export function setFilmFragForSearch(films) {
 
 
 /* function for resetting movie list */
-export function setFilmFragForReset(films) {
+export function setFilmFragForReset(films, conf = {reset:true}) {
     const containerFrag = new DocumentFragment();
     
     for(let film of films) {
@@ -67,7 +80,7 @@ export function setFilmFragForReset(films) {
 
         containerFrag.appendChild(movie);
     }
-    wrapper.innerHTML = " ";
+    if(conf.reset) wrapper.innerHTML = " ";
     wrapper.appendChild(containerFrag);  
 }
 
