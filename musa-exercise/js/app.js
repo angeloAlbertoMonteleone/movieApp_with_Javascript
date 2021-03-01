@@ -11,7 +11,6 @@ export let count = 0;
 const body = document.querySelector('body');
 export const wrapper = document.querySelector('.wrapper');
 const main = document.querySelector('main');
-export const form = document.getElementById('filter-form');
 export const hamburgerMenu = document.querySelector('.hamburgerMenu');
 const ul = document.querySelector('.ul-ham');
 const hamMovie = document.querySelector('#ham-movie');
@@ -21,7 +20,7 @@ export let inputValue = document.getElementById('search');
 const titleForm = document.getElementById('title');
 const descriptionForm = document.getElementById('description')
 const categoryForm = document.getElementById('category')
-
+export const filter_list = document.getElementById('filter-list')
 
 movieGenresFetch().then(() => moviesTopratedFetch());
 
@@ -77,9 +76,33 @@ moreMoviesButton.onclick = () => {
     completeMovieList();
 }
 
-
 export const liHam = document.querySelector('li');
 
+export const form = document.getElementById('filter-form');
+form.addEventListener('submit', (el) => {
+    el.preventDefault();
+    let arrSelectedGenres = [];
+    let arrName = [];
+    let arrGenre = [];
+    const checkbox_genre = document.querySelectorAll('.checkbox-genre');
+    // retrieve the selected genre list  
+    for (const genreElm of checkbox_genre) {
+        // console.log(genreElm.name,genreElm.value ,genreElm.checked);
+        if(genreElm.checked) {
+            console.log(genreElm.value);
+            const genre = genreElm.value;
+            const selected = filmTopRated.filter((movie) => movie.id.includes(genre))
+            console.log(selected);
+        }
+    }
+    
 
+     
+    // filter movies with selected genres
+    
+    // filter movies by name
+
+    // filter movies by genre
+})
 // const filterForm = document.querySelector('#filter-form');
 // filterForm.addEventListener('action', moviesGenresFilter);
