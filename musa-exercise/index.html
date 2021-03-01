@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <!-- script -->
     <script type="module" src="./js/app.js"></script>
 </head>
+
 <body>
     <div class="container">
         <div class="nav">
@@ -27,15 +29,15 @@
         <div class="hamburgerMenu">
             <ul id="containerHam"></ul>
         </div>
-        
+
     </div>
-        
-    <div class="container2" id="container2" >
+
+    <div class="container2" id="container2">
 
         <div class="filter-list">
-            <h3>Search All Movies</h3>            
-            <form id="form"> 
-                 <!--return false means removing default behavior from onsbmit(refreshing page)  -->
+            <h3>Search All Movies</h3>
+            <form id="form">
+                <!--return false means removing default behavior from onsbmit(refreshing page)  -->
                 <input type="text" name="search" id="search" placeholder="search">
                 <button id="submit" type="submit">Send</button>
                 <button id="reset" type="reset">Reset</button>
@@ -44,10 +46,14 @@
             <div class="filters">
                 <!-- <button id="submit" type="submit">Filters</button> -->
                 <button id="filters" type="menu">Categories</button>
-                <button id="close-filters" >Close Categories</button>
+                <button id="close-filters">Close Categories</button>
 
                 <div class="checkbox" id="divCheckbox">
-                    <form id="filter-form"></form>    
+                    <form id="filter-form">
+                        <input type="checkbox" name="azione" value="28">
+                        <label name=azione>azione</label>
+                        <button id="sendCategory" type="submit">Send</button>
+                    </form>
                 </div>
 
                 <h3>Create a new movie</h3>
@@ -59,16 +65,17 @@
                 </form>
             </div>
         </div>
-        
+
         <main>
             <h1>Top Rated Movies</h1>
             <div class="wrapper"></div>
             <button id="moreMovies">More Movies</button>
         </main>
     </div>
-    
+
     <!-- <script src="./createEl-html.js"></script>
     <script src="./createEl-append.js"></script>
     <script src="./action-movies.js"></script> -->
 </body>
+
 </html>
