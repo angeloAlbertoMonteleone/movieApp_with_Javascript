@@ -17,18 +17,29 @@ export function setFilmFragForSearch(films) {
             switch(id) {
                 case 12:
                 case 14:
+                case 37:
+                case 53:
+                case 80:
+                case 10752:
                     color = 'red';
                     break;
                 case 16:
                 case 18:
+                case 99:
+                case 878:
                     color = 'pink';
                     break;
                 case 27:
                 case 28:
+                case 9648:
+                case 10402:
                     color = 'green';
                     break;
                 case 35:
                 case 36:
+                case 10749:
+                case 10751:
+                case 10770:
                     color = 'yellow';
                     break;
             }
@@ -42,7 +53,7 @@ export function setFilmFragForSearch(films) {
                 <img class="image" 
                 src="${IMAGE_BASE_URL + film.poster_path}" />
                 <h4 class="description">${film.overview}</h4>
-                <h5 class="list">${film.genre_ids.map((idCat) => `<span id="${changeIdSpan(idCat)}">${genresCat[idCat]}</span> `).join(' ')}</h5>
+                <h5 class="list">${film.genre_ids.map((idCat) => `<span class="tag-genre tag-${changeIdSpan(idCat)}" id="${idCat}">${genresCat[idCat]}</span> `).join(' ')}</h5>
             </div>
         </div>
         `;
@@ -59,12 +70,45 @@ export function setFilmFragForSearch(films) {
 /* function for resetting movie list */
 export function setFilmFragForReset(films, conf = {reset:true}) {
     const containerFrag = new DocumentFragment();
+
     
     for(let film of films) {
         const movie = document.createElement('div');
         movie.classList.add('film-card');
                 
-
+        function changeIdSpan(id) {
+            let color = " ";
+            switch(id) {
+                case 12:
+                case 14:
+                case 37:
+                case 53:
+                case 80:
+                case 10752:
+                    color = 'red';
+                    break;
+                case 16:
+                case 18:
+                case 99:
+                case 878:
+                    color = 'pink';
+                    break;
+                case 27:
+                case 28:
+                case 9648:
+                case 10402:
+                    color = 'green';
+                    break;
+                case 35:
+                case 36:
+                case 10749:
+                case 10751:
+                case 10770:
+                    color = 'yellow';
+                    break;
+            }
+            return color;
+        }
         
         movie.innerHTML = `
         <div class="card" data-isInvisible="${!film.overview ? false : true}">
@@ -73,7 +117,7 @@ export function setFilmFragForReset(films, conf = {reset:true}) {
                 <img class="image" 
                 src="${IMAGE_BASE_URL + film.poster_path}" />
                 <h4 class="description">${film.overview}</h4>
-                <h5 class="list">${film.genre_ids.map((idCat) => `<span id="${genresCat[idCat]}">${genresCat[idCat]}</span> `).join('')}</h5>
+                <h5 class="list">${film.genre_ids.map((idCat) => `<span class="tag-genre tag-${changeIdSpan(idCat)}" id="${idCat}">${genresCat[idCat]}</span> `).join('')}</h5>
             </div>
         </div>
         `;
