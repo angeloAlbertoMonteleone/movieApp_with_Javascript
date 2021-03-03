@@ -1,5 +1,5 @@
 import {setFilmFragForSearch,  getCatHamburgerMenu, setFilmFragForMore} from './renderMovies.js';
-import {nextMovies, movieegenres, filmTopRated, totPages} from './fetch.js'
+import {nextMovies, movieegenres, filmTopRated, totPages, genresCat} from './fetch.js'
 import {checkbox, hamburgerMenu, closeFiltersButton, wrapper, inputValue} from './app.js'
 import {END_POINT_SEARCH } from "./environments.js";
 import { createFiltersList } from "./forms.js";
@@ -15,28 +15,45 @@ export let createMoviesGenres = (arrCat) =>
 
 
 /* how to search and make appearing movies */
-export function moviesFilter(e){
-    debugger;
-    const searchElement = e.search.value;
-    const newUrl = END_POINT_SEARCH + '&query=' + searchElement;
-    fetch(newUrl).then((res) => res.json())
-        .then((data) => {
-            console.log('data: ',data)
-            setFilmFragForSearch(data.results);
-            searchMovies.push(data.results);
-            console.log(searchMovies);  
-            })
-        .catch((err) => {
-            console.log('error',err)
-            });
-            inputValue.value = '';
-    console.log(searchElement);
+export function moviesFilter(search, filmTopRated){
+    if(!search) return filmTopRated;
+    const searchElement = search;
+    const movieValue = filmTopRated.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
+    console.log('movie from search: ', movieValue);
 
+    // const newUrl = END_POINT_SEARCH + '&query=' + searchElement;
+    // fetch(newUrl).then((res) => res.json())
+    //     .then((data) => {
+    //         console.log('data: ',data)
+    //         
+    //         searchMovies.push(data.results);
+    //         console.log(searchMovies);  
+    //         })
+    //     .catch((err) => {
+    //         console.log('error',err)
+    //         });
+    //         inputValue.value = '';
+    // console.log(searchElement);
     
-    // const movieValue = nextMovies.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
-    // console.log('input search: ', e.search.value);
-    // console.log('movie from search: ', movieValue);
+    
 }
+
+
+export function moviesFilterGenres(checkbox_genre, filmTopRated){
+const checkedMovies = checkbox_genre.filter(movie => movie.checked);
+if (checkedMovies.length == 0) return filmTopRate;
+// retrieve the selected genre list  
+const filteredMovies = filmTopRated.filter(film => {
+    let genreContained = false;
+    checkedMovies.forEach(genre => {
+        genreContained = film.genre_ids.includes(genre.value);
+    });
+})
+return genreContained;
+}
+
+
+
 
 export function createNewMovie(e) {
     const createTitle = e.title.value;
@@ -70,7 +87,7 @@ export function createNewMovie(e) {
 
 /* open categories filter menu */
 export function openFilterMenu() {
-    createFiltersList(movieegenres);
+    createFiltersList(genresCat);
     checkbox.style.display = "block";
     closeFiltersButton.style.display="inline";
 }
