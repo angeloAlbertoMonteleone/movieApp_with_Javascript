@@ -30,30 +30,26 @@
             <ul id="containerHam"></ul>
         </div>
 
+        <div class="home-pic"></div>
     </div>
 
     <div class="container2" id="container2">
-
         <div class="filter-list">
-            <h3>Search All Movies</h3>
+            <h3>Search Movies</h3>
             <form id="form">
-                <!--return false means removing default behavior from onsbmit(refreshing page)  -->
-                <input type="text" name="search" id="search" placeholder="search">
-            </form>
-
-            <div class="filters">
-                <!-- <button id="submit" type="submit">Filters</button> -->
-                <button id="filters" type="menu">Categories</button>
-                <button id="close-filters">Close Categories</button>
-
-                <div class="checkbox" id="divCheckbox">
-                    <form id="filter-form">
-
-                    </form>
-                    <button id="submit" type="submit">Send</button>
-                    <button id="reset" type="reset">Reset</button>
+                <div class="filters">
+                    <!--return false means removing default behavior from onsbmit(refreshing page)  -->
+                    <input type="text" name="search" id="search" placeholder="search">
+                    <h3>Categories</h3>
+                    <div class="genres-filter"></div>
+                    <p class="showCat">Show all categories</p>
                 </div>
 
+                <button id="submit" type="submit">Send</button>
+                <button id="reset" type="reset">Reset</button>
+            </form>
+
+            <div class="newMovies">
                 <h3>Create a new movie</h3>
                 <form id="createNewMovie">
                     <input type="text" name="title" placeholder="title..">
@@ -65,7 +61,11 @@
         </div>
 
         <main>
-            <h1>Top Rated Movies</h1>
+            <div class="moviesMenu">
+                <h1 class="buttonTopRated">Top Rated</h1>
+                <h1 class="buttonPopular">Popular</h1>
+            </div>
+
             <div class="wrapper"></div>
             <button id="moreMovies">More Movies</button>
         </main>
