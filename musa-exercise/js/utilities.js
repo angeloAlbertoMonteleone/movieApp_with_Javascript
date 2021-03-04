@@ -1,6 +1,6 @@
 import {setFilmFragForSearch,  getCatHamburgerMenu, setFilmFragForMore} from './renderMovies.js';
 import {nextMovies, movieegenres, filmTopRated, totPages, genresCat} from './fetch.js'
-import {checkbox, hamburgerMenu, closeFiltersButton, wrapper, inputValue} from './app.js'
+import {checkbox, hamburgerMenu,  wrapper, inputValue} from './app.js'
 import {END_POINT_SEARCH } from "./environments.js";
 import { createFiltersList } from "./forms.js";
 
@@ -20,7 +20,7 @@ export function moviesFilter(search, filmTopRated){
     const searchElement = search;
     const movieValue = filmTopRated.filter(film => film.title.toLowerCase().includes(searchElement.toLowerCase())); //check if title includes search value in input
     console.log('movie from search: ', movieValue);
-
+    return movieValue;
     // const newUrl = END_POINT_SEARCH + '&query=' + searchElement;
     // fetch(newUrl).then((res) => res.json())
     //     .then((data) => {
@@ -40,16 +40,28 @@ export function moviesFilter(search, filmTopRated){
 
 
 export function moviesFilterGenres(checkbox_genre, filmTopRated){
-const checkedMovies = checkbox_genre.filter(movie => movie.checked);
-if (checkedMovies.length == 0) return filmTopRate;
+let checkedMovies = [];
+
+for (const genre of checkbox_genre) {
+    if(genre.checked) {
+        checkedMovies = [...checkedMovies, genre]
+    }
+}
+
+if (checkedMovies.length == 0) return filmTopRated;
 // retrieve the selected genre list  
+
 const filteredMovies = filmTopRated.filter(film => {
     let genreContained = false;
-    checkedMovies.forEach(genre => {
-        genreContained = film.genre_ids.includes(genre.value);
-    });
+    for (const checked of checkedMovies) {
+        genreContained = film.genre_ids.includes(+checked.value);
+        if(!genreContained) {
+            break;
+        }
+    } 
+    return genreContained;
 })
-return genreContained;
+return filteredMovies;
 }
 
 
