@@ -1,7 +1,8 @@
-import { BASE_URL, MOVIE_GENRES, API_KEY, LANGUAGE_URL, PAGE_NUMBER_URL,MOVIE_TOPRATED,  END_POINT_SEARCH} from "./environments.js";
+import { BASE_URL, MOVIE_GENRES, API_KEY, LANGUAGE_URL, PAGE_NUMBER_URL,MOVIE_TOPRATED,  END_POINT_SEARCH, MOVIE_POPULAR} from "./environments.js";
 import {createMoviesGenres} from './utilities.js';
 import {setFilmFragForReset, setFilmFragForSearch} from './renderMovies.js'
 import {count} from './app.js';
+import {createFiltersList} from './forms.js';
 // import {movieegenres,filmTopRated, nextMovies} from "./app.js";
 
 
@@ -12,6 +13,8 @@ export let filmTopRated = [];
 export let nextMovies = []; 
 export let totPages = [];
 export let searchMovies = [];
+export let filmPopular = [];
+
 
 /* second fetch called before the movies list */
 export function movieGenresFetch() {
@@ -24,7 +27,7 @@ export function movieGenresFetch() {
 
             genresCat = createMoviesGenres(moviesGenres.genres);
             console.log('dictionary of genres(genresCat):', genresCat);
-            
+            createFiltersList(genresCat);
             }).catch(err => console.log(err));
 }
 
@@ -52,10 +55,23 @@ export function moviesTopratedFetch() {
     }).catch(error => console.log(error));
 }
 
+   
+
+export function fetchPopularMovie() {
+    fetch(BASE_URL + MOVIE_POPULAR + API_KEY + LANGUAGE_URL + PAGE_NUMBER_URL).then(
+        async (popular) => {
+            let movies = await popular.json();
+            let {results: films} = movies;
+            filmPopular = films;
+            setFilmFragForSearch(filmPopular);
+        }
+    )
+}
 
 
- /* next movies fetch */
- export function fetchMoreMovies() {
+
+/* next movies fetch */
+export function fetchMoreMovies() {
     fetch(BASE_URL + MOVIE_TOPRATED + API_KEY + LANGUAGE_URL + (PAGE_NUMBER_URL + count) ).then(
         async (topRated) => {
             let topRated2 = await topRated.json(); 
@@ -70,5 +86,19 @@ export function moviesTopratedFetch() {
         }
     )
 }
-    
 
+// export function fetchMoreMovies() {
+//     fetch(BASE_URL + MOVIE_POPULAR + API_KEY + LANGUAGE_URL + (PAGE_NUMBER_URL + count) ).then(
+//         async (popular) => {
+//             let popularMovies = await popular.json(); 
+//             console.log(topRated2); 
+            
+//             totPages = topRated2.page;
+//             console.log(totPages);
+
+//             let {results: films} = topRated2;
+//             nextMovies = films;
+//             console.log('next movies',nextMovies)
+//         }
+//     )
+// }
