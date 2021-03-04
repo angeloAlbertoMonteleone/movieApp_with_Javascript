@@ -1,8 +1,9 @@
 {'use strict'};
 
-import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages, filmTopRated, movieegenres} from './fetch.js'
-import { hamburgerMenuMovies, closeHamburgerMenu, openFilterMenu, closeFilters, loadMoreMovie, moviesFilter, createNewMovie, moviesFilterGenres} from "./utilities.js";
-import {resetForm} from "./forms.js";
+import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages, filmTopRated, movieegenres, fetchPopularMovie} from './fetch.js'
+import { hamburgerMenuMovies, closeHamburgerMenu, loadMoreMovie, moviesFilter, createNewMovie, moviesFilterGenres} from "./utilities.js";
+import {createFiltersList, resetForm} from "./forms.js";
+import { setFilmFragForSearch } from './renderMovies.js';
 
 
 
@@ -21,6 +22,10 @@ const titleForm = document.getElementById('title');
 const descriptionForm = document.getElementById('description')
 const categoryForm = document.getElementById('category')
 export const filter_list = document.getElementById('filter-list')
+export const genres_filter = document.querySelector('.genres-filter');
+let showCat = document.querySelector('.showCat');
+let opened_filter = false;
+
 
 movieGenresFetch().then(() => moviesTopratedFetch());
 
@@ -32,6 +37,7 @@ hamButton.addEventListener('click', hamburgerMenuMovies);
 const container2 = document.querySelector('#container2');
 container2.addEventListener('click',closeHamburgerMenu);
 
+
 /* form to create new Movie*/
 const formCreateNewMovie = document.querySelector('#createNewMovie');
 formCreateNewMovie.onsubmit = (element) => {
@@ -39,12 +45,11 @@ formCreateNewMovie.onsubmit = (element) => {
     return false;
 }
 
-export const filtersForm = document.querySelector('#form');
-filtersForm.onsubmit = (element) => {
-    moviesFilter(element.currentTarget);
-    moreMoviesButton.style.display="none";
-    return false;
-}
+// filtersForm.onsubmit = (element) => {
+//     moviesFilter(element.currentTarget);
+//     moreMoviesButton.style.display="none";
+//     return false;
+// }
 
 /* reset Movies and filters */
 const resetButton = document.querySelector('#reset');
@@ -52,14 +57,6 @@ resetButton.addEventListener('click',() => {
     resetForm();
     moreMoviesButton.style.display="block";
 });
-
-/* open filters */
-const openFiltersButton = document.querySelector('#filters');
-openFiltersButton.addEventListener('click', openFilterMenu);
-
-/* close filters */
-export const closeFiltersButton = document.querySelector('#close-filters');
-closeFiltersButton.addEventListener('click', closeFilters);
 
 /* button for more movies */
 let moreMoviesButton = document.querySelector('#moreMovies');
@@ -73,14 +70,25 @@ moreMoviesButton.onmouseover = () => {
 };
 moreMoviesButton.onclick = () => {
     loadMoreMovie();
-    completeMovieList();
 }
 
+
 // export const liHam = document.querySelector('li');
+showCat.addEventListener('click', () => {
+    if(opened_filter) {
+        showCat.textContent = "Show all categories";
+        genres_filter.style.height = "7rem";   
+        opened_filter = false;  
+        return   
+    }
+    genres_filter.style.height = "23.5rem";
+    showCat.textContent = "See less";
+    opened_filter = true;
+})
 
 
 
-export const form = document.getElementById('filter-form');
+export const form = document.querySelector('#form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const checkbox_genre = document.querySelectorAll('.checkbox-genre');
@@ -90,7 +98,20 @@ form.addEventListener('submit', (e) => {
     // filter movies by name
     searchedMovie = moviesFilter(search, filmTopRated);
     // filter movies by genre
-    const movieByGenre = moviesFilterGenres(checkbox_genre, searchedMovie);
+    searchedMovie = moviesFilterGenres(checkbox_genre, searchedMovie);
+
+    setFilmFragForSearch(searchedMovie)
 })
 // const filterForm = document.querySelector('#filter-form');
 // filterForm.addEventListener('action', moviesGenresFilter);
+
+/* button for top Rated movies list*/
+const buttonTopRated = document.querySelector('.buttonTopRated');
+buttonTopRated.addEventListener('click', () => {
+    setFilmFragForSearch(filmTopRated);
+})
+/* button for Popular movies list */
+const buttonPopular = document.querySelector('.buttonPopular');
+buttonPopular.addEventListener('click', () => {
+    fetchPopularMovie()
+})
