@@ -1,10 +1,14 @@
 body {
     padding: 0;
     margin: 0;
-    background: white url(../images/pexels-.jpg) center center repeat;
-    background-size: cover;
+    background-color: black;
+    /* background-color: #1d2149; */
     width: 100%;
     height: 100vh;
+}
+
+h1, h3 {
+    font-family: fantasy;
 }
 
 /* containers */
@@ -12,10 +16,16 @@ body {
 .container {
     margin: 0 auto;
     position: relative;
+    background: white url(../images/getout.jpg) center center repeat;
+    background-size: cover;
+}
+
+.home-pic {
+    height: 12rem;
 }
 
 .container2 {
-    background-color: #024c6f45;
+    background-color: white;
     max-width: 950px;
     margin: 0 auto;
     display: grid;
@@ -27,7 +37,7 @@ body {
 .nav {
     height: 60px;
     margin: 0 auto;
-    background-color: black;
+    background-color: transparent;
 }
 
 ul {
@@ -53,6 +63,7 @@ li a {
     text-align: center;
     padding: 21px 20px;
     text-decoration: none;
+    font-family: fantasy;
 }
 
 li a:hover {
@@ -76,6 +87,9 @@ li div {
     display: none;
     background-color: black;
     transition: all 1s ease-out;
+    border-radius: 20px;
+    margin-left: 20px;
+    padding: 10px;
 }
 
 .hamburgerMenu li {
@@ -99,28 +113,82 @@ li div {
     border-radius: 5px;
 }
 
+.filter-list {
+    text-align: center;
+}
+
+.genres-filter {
+    margin: 0 auto;
+    width: 12rem;
+    height: 7rem;
+    border: 1px solid black;
+    overflow-y: scroll;
+    padding: 10px;
+    transition-timing-function: linear;
+    transition: all 1s;
+    text-align: left;
+    border-radius: 5px;
+}
+
+/* main-menu */
+
+.moviesMenu {
+    display: flex;
+    justify-content: center;
+}
+
+.moviesMenu h1 {
+    display: inline-block;
+    text-align: center;
+    margin: 20px 5px;
+    border: 1px solid grey;
+    padding: 10px;
+}
+
 /* film-card */
 
 .film-card {
     margin: 2rem 0;
     border-radius: 30px;
     padding: 15px;
-    background-color: #ffffff94;
+    background-color: white;
     width: 90%;
 }
 
 img {
     width: 150px;
+    border-radius: 25px;
+    box-shadow: 1px 1px 2px black, 0 0 25px #010156, 0 0 5px darkblue;
+}
+
+h1.title {
+    font-family: fantasy;
+    font-size: smaller;
+}
+
+.card {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.card .descr {
+    border-bottom: 1px solid grey;
 }
 
 .cover {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: fit-content;
+    border-radius: 25px;
+    height: 14rem;
 }
 
-.cover h4 {
+.film-card h4 {
     margin: 20px;
+    font-size: smaller;
 }
 
 .film-card h5 span {
@@ -152,8 +220,10 @@ h1 {
 /* filters button */
 
 button {
-    display: block;
-    margin: 0 auto;
+    background-color: azure;
+    border-radius: 7px;
+    padding: 6px;
+    color: #003f63;
 }
 
 button#submit {
@@ -189,6 +259,10 @@ button#close-filters {
 
 button#moreMovies {
     margin-bottom: 20px;
+}
+
+#createNewMovie input {
+    margin-bottom: 10px;
 }
 
 /* [data-isInvisible="false"] {
