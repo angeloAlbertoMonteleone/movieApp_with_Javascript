@@ -1,13 +1,12 @@
 import {setFilmFragForSearch, setFilmFragForReset} from "./renderMovies.js";
 import {filmTopRated} from "./fetch.js";
-import {form} from "./app.js";
+import {form, genres_filter} from "./app.js";
 
 /* reset movies list */
 export function resetForm(){
     setFilmFragForReset(filmTopRated);
     console.log('reset form', filmTopRated) 
 }
-
 
 export function createFiltersList(filmsGenres) {
     // const genre = film.genres_id.map((idCat) => genresCat[idCat]);
@@ -24,6 +23,6 @@ export function createFiltersList(filmsGenres) {
         
         wrapper.appendChild(div);        
     }    
-    form.appendChild(wrapper);
+    genres_filter.appendChild(wrapper);
 }
 
