@@ -1,11 +1,10 @@
 import {setFilmFragForSearch, setFilmFragForReset} from "./renderMovies.js";
-import {filmTopRated} from "./fetch.js";
 import {form, genres_filter} from "./app.js";
 
 /* reset movies list */
-export function resetForm(){
-    setFilmFragForReset(filmTopRated);
-    console.log('reset form', filmTopRated) 
+export function resetForm(movies){
+    setFilmFragForReset(movies);
+    console.log('reset form', movies) 
 }
 
 export function createFiltersList(filmsGenres) {
