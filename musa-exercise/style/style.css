@@ -259,6 +259,8 @@ button#close-filters {
 
 button#moreMovies {
     margin-bottom: 20px;
+    display: flex;
+    margin: 0 auto;
 }
 
 #createNewMovie input {
