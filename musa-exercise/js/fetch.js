@@ -1,7 +1,6 @@
 import { BASE_URL, MOVIE_GENRES, API_KEY, LANGUAGE_URL, PAGE_NUMBER_URL,MOVIE_TOPRATED,  END_POINT_SEARCH, MOVIE_POPULAR} from "./environments.js";
 import {createMoviesGenres} from './utilities.js';
 import {setFilmFragForReset, setFilmFragForSearch} from './renderMovies.js'
-import {count} from './app.js';
 import {createFiltersList} from './forms.js';
 // import {movieegenres,filmTopRated, nextMovies} from "./app.js";
 
@@ -71,16 +70,13 @@ export function fetchPopularMovie() {
 
 
 /* next movies fetch */
-export function fetchMoreMovies() {
-    fetch(BASE_URL + MOVIE_TOPRATED + API_KEY + LANGUAGE_URL + (PAGE_NUMBER_URL + count) ).then(
-        async (topRated) => {
-            let topRated2 = await topRated.json(); 
-            console.log(topRated2); 
+export function fetchMoreMovies(baseUrl, count) {
+    fetch(baseUrl + (PAGE_NUMBER_URL + count) ).then(
+        async (movies) => {
+            let moreMovies = await movies.json(); 
+            console.log(moreMovies); 
             
-            totPages = topRated2.page;
-            console.log(totPages);
-
-            let {results: films} = topRated2;
+            let {results: films} = moreMovies;
             nextMovies = films;
             console.log('next movies',nextMovies)
         }
