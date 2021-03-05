@@ -1,13 +1,14 @@
 {'use strict'};
 
-import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages, filmTopRated, movieegenres, fetchPopularMovie} from './fetch.js'
+import {movieGenresFetch, moviesTopratedFetch, fetchMoreMovies, totPages, filmTopRated, movieegenres, fetchPopularMovie, filmPopular} from './fetch.js'
 import { hamburgerMenuMovies, closeHamburgerMenu, loadMoreMovie, moviesFilter, createNewMovie, moviesFilterGenres} from "./utilities.js";
 import {createFiltersList, resetForm} from "./forms.js";
 import { setFilmFragForSearch } from './renderMovies.js';
+import {BASE_URL_POPULAR, BASE_URL_TOPRATED} from './environments.js'
 
 
-
-export let count = 0;
+export let countTopRated = 0;
+export let countPopular = 0;
 
 const body = document.querySelector('body');
 export const wrapper = document.querySelector('.wrapper');
@@ -58,19 +59,45 @@ resetButton.addEventListener('click',() => {
     moreMoviesButton.style.display="block";
 });
 
+
+
+
+/* button for top Rated movies list*/
+const buttonTopRated = document.querySelector('.buttonTopRated');
+buttonTopRated.addEventListener('click', () => {
+    moviesTopratedFetch();
+})
+/* button for Popular movies list */
+const buttonPopular = document.querySelector('.buttonPopular');
+buttonPopular.addEventListener('click', () => {
+    fetchPopularMovie()
+})
+
+
+
 /* button for more movies */
 let moreMoviesButton = document.querySelector('#moreMovies');
 moreMoviesButton.onmouseover = () => {
     if(totPages == 500) {
         moreMoviesButton.style.display = "none";
     } else {
-        count++;
-        fetchMoreMovies();
+        if(filmPopular.length == 0) {
+            countTopRated++;
+            console.log('toprated',fetchMoreMovies(BASE_URL_TOPRATED, countTopRated));
+        } 
+        if(filmTopRated.length == 0) {
+            countPopular++;
+            resetForm([]);
+          console.log('popular',fetchMoreMovies(BASE_URL_POPULAR, countPopular));
+        }
+        
     }
 };
+
 moreMoviesButton.onclick = () => {
-    loadMoreMovie();
+        loadMoreMovie();
 }
+
 
 
 // export const liHam = document.querySelector('li');
@@ -104,14 +131,3 @@ form.addEventListener('submit', (e) => {
 })
 // const filterForm = document.querySelector('#filter-form');
 // filterForm.addEventListener('action', moviesGenresFilter);
-
-/* button for top Rated movies list*/
-const buttonTopRated = document.querySelector('.buttonTopRated');
-buttonTopRated.addEventListener('click', () => {
-    setFilmFragForSearch(filmTopRated);
-})
-/* button for Popular movies list */
-const buttonPopular = document.querySelector('.buttonPopular');
-buttonPopular.addEventListener('click', () => {
-    fetchPopularMovie()
-})
