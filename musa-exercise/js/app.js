@@ -55,9 +55,15 @@ formCreateNewMovie.onsubmit = (element) => {
 /* reset Movies and filters */
 const resetButton = document.querySelector('#reset');
 resetButton.addEventListener('click',() => {
-    resetForm();
+    if(moreMoviesButton.className == 'topRated') {
+        resetForm(filmTopRated);
+    } else {
+        resetForm(filmPopular)
+    }
     moreMoviesButton.style.display="block";
 });
+
+
 
 
 
@@ -65,38 +71,57 @@ resetButton.addEventListener('click',() => {
 /* button for top Rated movies list*/
 const buttonTopRated = document.querySelector('.buttonTopRated');
 buttonTopRated.addEventListener('click', () => {
+    /* button h1 */
+    buttonPopular.classList.remove('true');
+    buttonTopRated.className = "true";
+
+    /* moreMoviesButton */
+    moreMoviesButton.style.display = "block";
+    moreMoviesButton.className = "topRated";
     moviesTopratedFetch();
 })
+
+
+
+
 /* button for Popular movies list */
 const buttonPopular = document.querySelector('.buttonPopular');
 buttonPopular.addEventListener('click', () => {
+    /* button h1 */
+    buttonTopRated.classList.remove('true');
+    buttonPopular.className = "true";
+    /* moreMoviesButton */
+    moreMoviesButton.style.display = "block";
+    moreMoviesButton.className = "Popular";
     fetchPopularMovie()
 })
+
+
 
 
 
 /* button for more movies */
 let moreMoviesButton = document.querySelector('#moreMovies');
 moreMoviesButton.onmouseover = () => {
-    if(totPages == 500) {
-        moreMoviesButton.style.display = "none";
-    } else {
-        if(filmPopular.length == 0) {
-            countTopRated++;
-            console.log('toprated',fetchMoreMovies(BASE_URL_TOPRATED, countTopRated));
-        } 
-        if(filmTopRated.length == 0) {
-            countPopular++;
-            resetForm([]);
-          console.log('popular',fetchMoreMovies(BASE_URL_POPULAR, countPopular));
-        }
-        
+    if(moreMoviesButton.className == 'topRated') {
+        countTopRated++;
+        console.log('toprated',fetchMoreMovies(BASE_URL_TOPRATED, countTopRated));
+    } else if (moreMoviesButton.className == 'Popular') {
+        countPopular++;
+        console.log('popular',fetchMoreMovies(BASE_URL_POPULAR, countPopular));
     }
-};
 
+    if(moreMoviesButton.className == 'topRated' && totPages == 424) {
+        moreMoviesButton.style.display = "none";
+    } else if (moreMoviesButton.className == 'Popular' && totPages == 500) {
+        moreMoviesButton.style.display = "none";
+    }
+         
+}
 moreMoviesButton.onclick = () => {
         loadMoreMovie();
 }
+
 
 
 
@@ -115,6 +140,8 @@ showCat.addEventListener('click', () => {
 
 
 
+
+/* form to filter movies and categories */
 export const form = document.querySelector('#form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -123,11 +150,18 @@ form.addEventListener('submit', (e) => {
     // filter movies with selected genres
     let searchedMovie;
     // filter movies by name
-    searchedMovie = moviesFilter(search, filmTopRated);
+    searchedMovie = moviesFilter(search, 
+        (moreMoviesButton.className == 'topRated' ?
+         filmTopRated : filmPopular));
+
     // filter movies by genre
     searchedMovie = moviesFilterGenres(checkbox_genre, searchedMovie);
 
     setFilmFragForSearch(searchedMovie)
 })
+
+
+
+
 // const filterForm = document.querySelector('#filter-form');
 // filterForm.addEventListener('action', moviesGenresFilter);
