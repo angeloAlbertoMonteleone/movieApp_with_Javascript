@@ -56,6 +56,7 @@ export function moviesTopratedFetch() {
 
    
 
+
 export function fetchPopularMovie() {
     fetch(BASE_URL + MOVIE_POPULAR + API_KEY + LANGUAGE_URL + PAGE_NUMBER_URL).then(
         async (popular) => {
@@ -75,7 +76,9 @@ export function fetchMoreMovies(baseUrl, count) {
         async (movies) => {
             let moreMovies = await movies.json(); 
             console.log(moreMovies); 
-            
+
+            totPages = moreMovies.page;
+
             let {results: films} = moreMovies;
             nextMovies = films;
             console.log('next movies',nextMovies)
@@ -83,18 +86,3 @@ export function fetchMoreMovies(baseUrl, count) {
     )
 }
 
-// export function fetchMoreMovies() {
-//     fetch(BASE_URL + MOVIE_POPULAR + API_KEY + LANGUAGE_URL + (PAGE_NUMBER_URL + count) ).then(
-//         async (popular) => {
-//             let popularMovies = await popular.json(); 
-//             console.log(topRated2); 
-            
-//             totPages = topRated2.page;
-//             console.log(totPages);
-
-//             let {results: films} = topRated2;
-//             nextMovies = films;
-//             console.log('next movies',nextMovies)
-//         }
-//     )
-// }
