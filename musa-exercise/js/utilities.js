@@ -136,40 +136,11 @@ export function closeHamburgerMenu(){
 }
 
 
+/* load more movies by moreMoviesButton */
 export function loadMoreMovie() {
     setFilmFragForMore(nextMovies)
 }
 
-export function loadMovieCat() {
-    const filteredCat = films.filter((movie) => movie);
-    console.log(filteredCat);
-}
 
 
-/* function to filter movies category*/
 
-
-// async function controller() {
-//     await movieGenresFetch();
-//     await moviesTopratedFetch();
-// }
-// controller();
-
-
-// function getError(code) {
-//     if(code === 7) {
-//         alert("You must enter a valid API Key");
-//     }else {
-//         alert("Generic error");
-//     }
-// }
-
-
-// function getActionMovies(movies) {
-//     return movies.filter((film) => film.genre_ids.find((id) => id == 18));
-// }
-
-// function getTwo(movies) {
-//     return movies.filter(movie => movie.vote_average >= 8.9)       
-// //     movies.filter((value,index,array) => console.log())
-// }
