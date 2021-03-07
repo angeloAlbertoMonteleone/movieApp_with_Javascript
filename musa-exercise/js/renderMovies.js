@@ -1,7 +1,7 @@
 import { wrapper, hamburgerMenu, form} from './app.js';
 import {genresCat, nextMovies} from './fetch.js'
 import {IMAGE_BASE_URL} from "./environments.js";
-import {loadMovieCat} from "./utilities.js";
+
 
 
 /* function for searching movie list */
@@ -247,14 +247,13 @@ export function setFilmsEvent(films) {
 
 
 
-export function getCatHamburgerMenu(films) {
-    let movie = ' ';
-    for (const film of films) {
-        
-        movie += `
-        <li onclick="" id="${film.id}">${film.name}</li>
+export function getCatHamburgerMenu(genres) {
+    let gen = ' ';
+    for (const genre of genres) { 
+        gen += `
+        <li class="ham-genre" type="text" id="${genre.id}">${genre.name}</li>
         `
-        hamburgerMenu.innerHTML = movie;
+        hamburgerMenu.innerHTML = gen;
     }
 
 }
