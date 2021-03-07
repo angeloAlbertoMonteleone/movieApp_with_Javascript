@@ -1,8 +1,9 @@
 import {setFilmFragForSearch,  getCatHamburgerMenu, setFilmFragForMore} from './renderMovies.js';
-import {nextMovies, movieegenres, filmTopRated, totPages, genresCat} from './fetch.js'
-import {checkbox, hamburgerMenu,  wrapper, inputValue} from './app.js'
+import {nextMovies, movieegenres, filmTopRated, totPages, genresCat, filmPopular} from './fetch.js'
+import {checkbox, hamburgerMenu,  wrapper, inputValue, moreMoviesButton} from './app.js';
 import {END_POINT_SEARCH } from "./environments.js";
 import { createFiltersList } from "./forms.js";
+
 
 export let searchMovies = [];
 
@@ -126,12 +127,25 @@ export function hamburgerMenuMovies() {
     } else {
         hamburgerMenu.style.display = 'block';
     }
+
+    const genreHam = document.querySelectorAll('.ham-genre');
+    for(const genre of genreHam) {
+        if(genre.id) {
+            genre.addEventListener('click', (e) => {
+                const idValue = e.target.id;
+                const filteredGenre = (moreMoviesButton.className == 'topRated' ? filmTopRated : filmPopular).filter(movie => movie.genre_ids.includes(+idValue));
+                setFilmFragForSearch(filteredGenre)
+            })
+        }
+        
+    }
+    console.log(genreHam);
 }
 
 /* closing hamburger menu by clicking somewhere else  */
 export function closeHamburgerMenu(){
     if(hamburgerMenu.style.display === 'block') {
-        hamburgerMenu.style.display = 'none';
+        hamburgerMenu.style.display = "none";
     }
 }
 
