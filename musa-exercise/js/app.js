@@ -101,7 +101,7 @@ buttonPopular.addEventListener('click', () => {
 
 
 /* button for more movies */
-let moreMoviesButton = document.querySelector('#moreMovies');
+export let moreMoviesButton = document.querySelector('#moreMovies');
 moreMoviesButton.onmouseover = () => {
     if(moreMoviesButton.className == 'topRated') {
         countTopRated++;
