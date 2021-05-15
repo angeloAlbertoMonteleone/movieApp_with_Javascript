@@ -1,3 +1,7 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -8,7 +12,7 @@ body {
 }
 
 h1, h3 {
-    font-family: fantasy;
+    font-family: 'IBM Plex Sans', sans-serif;
 }
 
 /* containers */
@@ -38,6 +42,7 @@ h1, h3 {
     height: 60px;
     margin: 0 auto;
     background-color: transparent;
+    font-family: 'IBM Plex Sans', sans-serif;
 }
 
 ul {
@@ -63,7 +68,6 @@ li a {
     text-align: center;
     padding: 21px 20px;
     text-decoration: none;
-    font-family: fantasy;
 }
 
 li a:hover {
@@ -128,6 +132,8 @@ li div {
     transition: all 1s;
     text-align: left;
     border-radius: 5px;
+    font-size: smaller;
+    font-weight: 500;
 }
 
 /* main-menu */
@@ -176,8 +182,10 @@ img {
 }
 
 h1.title {
-    font-family: fantasy;
-    font-size: smaller;
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: large;
+    font-weight: 500;
 }
 
 .card {
@@ -203,6 +211,7 @@ h1.title {
 .film-card h4 {
     margin: 20px;
     font-size: smaller;
+    font-weight: 500;
 }
 
 .film-card h5 span {
@@ -239,6 +248,8 @@ button {
     padding: 6px;
     color: #003f63;
     outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
 }
 
 button#submit {
